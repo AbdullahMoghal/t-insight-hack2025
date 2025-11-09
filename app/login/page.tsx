@@ -35,11 +35,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md relative z-10">
         <div className="flex justify-center mb-8">
           <Image
-            src="/logo.svg"
-            alt="T-Mobile Logo"
-            width={80}
-            height={80}
-            className="drop-shadow-lg"
+            src="/login-logo.svg"
+            alt="T-Insight Logo"
+            width={200}
+            height={67}
             priority
           />
         </div>
@@ -85,7 +84,7 @@ export default function LoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     required
                     autoComplete="current-password"
-                    className="border-tmobile-gray-300 focus:ring-tmobile-magenta pr-10"
+                    className="border-tmobile-gray-300 focus:ring-[#E8258E] pr-10"
                   />
                   <button
                     type="button"
