@@ -60,49 +60,102 @@ export function SourceBreakdown({ data }: SourceBreakdownProps) {
   }
 
   return (
-    <div className="relative w-full h-[300px] overflow-hidden bg-gradient-to-br from-white to-gray-50/30 border-0 rounded-2xl shadow-xl p-6">
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-purple-500/5 to-tmobile-magenta/5" />
-      <h3 className="relative text-lg font-bold text-[#E8258E] mb-4">
-        Source Breakdown
-      </h3>
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={dataWithPercentage}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomLabel}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {dataWithPercentage.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+    <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl">
+      <div className="absolute inset-0 bg-gradient-to-br from-tmobile-magenta/5 via-transparent to-purple-500/5" />
+
+      <div className="relative p-6">
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-[#E8258E] mb-1">Source Breakdown</h3>
+          <p className="text-xs text-tmobile-gray-600">
+            Distribution of signals across data sources
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Pie Chart */}
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={dataWithPercentage}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={renderCustomLabel}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {dataWithPercentage.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    backdropFilter: 'blur(8px)',
+                  }}
+                  formatter={(value: number, name: string, props: any) => [
+                    `${value} signals (${props.payload.percentage}%)`,
+                    name,
+                  ]}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Source List */}
+          <div className="space-y-3">
+            <div className="text-sm font-semibold text-tmobile-gray-700 mb-4">
+              Source Details
+            </div>
+            {dataWithPercentage.map((item, index) => (
+              <div
+                key={item.name}
+                className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-tmobile-gray-50 to-white border border-tmobile-gray-200 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-4 h-4 rounded-full"
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                  />
+                  <span className="text-sm font-medium text-tmobile-black">
+                    {item.name}
+                  </span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-tmobile-gray-600">
+                    {item.value.toLocaleString()} signals
+                  </span>
+                  <span
+                    className="text-sm font-bold min-w-[3rem] text-right"
+                    style={{ color: COLORS[index % COLORS.length] }}
+                  >
+                    {item.percentage}%
+                  </span>
+                </div>
+              </div>
             ))}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'rgba(255, 255, 255, 0.95)',
-              border: '1px solid #E5E7EB',
-              borderRadius: '8px',
-              backdropFilter: 'blur(8px)',
-            }}
-            formatter={(value: number, name: string, props: any) => [
-              `${value} signals (${props.payload.percentage}%)`,
-              name,
-            ]}
-          />
-          <Legend
-            verticalAlign="bottom"
-            height={36}
-            wrapperStyle={{ fontSize: '12px' }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+
+            {/* Total */}
+            <div className="pt-3 mt-3 border-t border-tmobile-gray-200">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-tmobile-magenta/5 to-purple-50">
+                <span className="text-sm font-bold text-tmobile-black">
+                  Total
+                </span>
+                <span className="text-sm font-bold text-[#E8258E]">
+                  {total.toLocaleString()} signals
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

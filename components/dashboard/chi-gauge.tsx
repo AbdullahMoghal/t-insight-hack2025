@@ -1,14 +1,25 @@
 'use client'
 
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts'
+import { TrendingUp, TrendingDown, Minus, ArrowUp, ArrowDown } from 'lucide-react'
 
 interface CHIGaugeProps {
   score: number
   size?: 'sm' | 'md' | 'lg'
   showLabel?: boolean
+  trend?: number // Change from previous period
+  previousScore?: number
+  showTrend?: boolean
 }
 
-export function CHIGauge({ score, size = 'lg', showLabel = true }: CHIGaugeProps) {
+export function CHIGauge({
+  score,
+  size = 'lg',
+  showLabel = true,
+  trend,
+  previousScore,
+  showTrend = true,
+}: CHIGaugeProps) {
   // Clamp score between 0 and 100
   const clampedScore = Math.max(0, Math.min(100, score))
 
@@ -92,6 +103,33 @@ export function CHIGauge({ score, size = 'lg', showLabel = true }: CHIGaugeProps
           >
             {clampedScore < 40 ? 'Critical' : clampedScore < 70 ? 'Warning' : 'Good'}
           </span>
+        </div>
+      )}
+
+      {/* Trend Indicator */}
+      {showTrend && trend !== undefined && size === 'lg' && (
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <div className="flex items-center gap-2">
+            {trend > 0 ? (
+              <ArrowUp className="h-4 w-4 text-green-600" />
+            ) : trend < 0 ? (
+              <ArrowDown className="h-4 w-4 text-red-600" />
+            ) : (
+              <Minus className="h-4 w-4 text-gray-500" />
+            )}
+            <span
+              className={`text-sm font-semibold ${
+                trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-600' : 'text-gray-500'
+              }`}
+            >
+              {trend > 0 ? '+' : ''}{trend.toFixed(1)} pts
+            </span>
+          </div>
+          {previousScore !== undefined && (
+            <div className="text-xs text-tmobile-gray-600">
+              from {Math.round(previousScore)}
+            </div>
+          )}
         </div>
       )}
     </div>
