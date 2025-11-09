@@ -10,7 +10,7 @@ import { calculateCHI, getCHITrend } from './chi';
 /**
  * Normalize topic text to proper title case with special handling
  */
-function normalizeTopicText(topic: string): string {
+export function normalizeTopicText(topic: string): string {
   // Special case mappings
   const specialCases: Record<string, string> = {
     'tmobile': 'T-Mobile',

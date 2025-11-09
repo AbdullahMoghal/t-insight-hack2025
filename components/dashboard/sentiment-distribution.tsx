@@ -72,7 +72,7 @@ export function SentimentDistribution({ data, productArea, sourceData = [] }: Se
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl p-6 h-full flex flex-col">
+    <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl p-6 flex flex-col max-h-[600px]">
       <div className="absolute inset-0 bg-gradient-to-br from-tmobile-magenta/5 via-transparent to-purple-500/5" />
 
       <div className="relative flex-1 flex flex-col">

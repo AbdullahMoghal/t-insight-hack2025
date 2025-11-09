@@ -18,7 +18,7 @@ export function Navbar({ userEmail }: NavbarProps) {
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/pm/opportunities', label: 'PM Workbench' },
     { href: '/pipeline', label: 'Pipeline' },
-    { href: '/dashboard/geo', label: 'GeoMap' },
+    { href: '/dashboard/geo', label: 'Map View' },
   ]
 
   return (
@@ -48,7 +48,10 @@ export function Navbar({ userEmail }: NavbarProps) {
           {/* Navigation Items */}
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+              // For dashboard, exclude the /dashboard/geo path
+              const isActive = item.href === '/dashboard'
+                ? pathname === '/dashboard'
+                : pathname === item.href || pathname.startsWith(item.href + '/')
 
               return (
                 <Link

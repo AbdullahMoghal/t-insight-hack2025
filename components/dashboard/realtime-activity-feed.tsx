@@ -56,7 +56,7 @@ export function RealtimeActivityFeed({ signals = [] }: RealtimeActivityFeedProps
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl h-full flex flex-col">
+    <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl flex flex-col max-h-[600px]">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-gradient-to-r from-tmobile-magenta/5 to-purple-500/5 border-b border-tmobile-gray-200 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">

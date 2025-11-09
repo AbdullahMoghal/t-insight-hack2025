@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient()
 
-    // Get current emerging issues (from signals in last hour)
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    // Get current emerging issues (from signals in last 6 hours)
+    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString()
 
     const { data: recentSignals, error: signalsError } = await supabase
       .from('signals')
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
           color
         )
       `)
-      .gte('detected_at', oneHourAgo)
+      .gte('detected_at', sixHoursAgo)
       .order('detected_at', { ascending: false })
 
     if (signalsError) {
@@ -81,22 +81,34 @@ export async function GET(request: NextRequest) {
     // Calculate velocity for each issue
     const risingIssues: VelocityData[] = []
 
-    for (const [key, issue] of issueMap.entries()) {
-      // Get historical snapshots for this topic (last 24 hours)
-      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    // OPTIMIZATION: Fetch all snapshots in a single query instead of N queries
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    const { data: allSnapshots, error: snapshotsError } = await supabase
+      .from('signal_intensity_snapshots')
+      .select('topic, product_area_id, intensity, snapshot_at, signal_count')
+      .gte('snapshot_at', twentyFourHoursAgo)
+      .order('snapshot_at', { ascending: true })
 
-      const { data: snapshots, error: snapshotsError } = await supabase
-        .from('signal_intensity_snapshots')
-        .select('intensity, snapshot_at, signal_count')
-        .eq('topic', issue.topic)
-        .eq('product_area_id', issue.productAreaId)
-        .gte('snapshot_at', twentyFourHoursAgo)
-        .order('snapshot_at', { ascending: true })
+    if (snapshotsError) {
+      console.error('Error fetching snapshots:', snapshotsError)
+      // Continue without snapshot data
+    }
 
-      if (snapshotsError) {
-        console.error('Error fetching snapshots:', snapshotsError)
-        continue
+    // Group snapshots by topic::product_area_id for quick lookup
+    const snapshotsByIssue = new Map<string, typeof allSnapshots>()
+    if (allSnapshots) {
+      for (const snapshot of allSnapshots) {
+        const key = `${snapshot.topic}::${snapshot.product_area_id}`
+        if (!snapshotsByIssue.has(key)) {
+          snapshotsByIssue.set(key, [])
+        }
+        snapshotsByIssue.get(key)!.push(snapshot)
       }
+    }
+
+    for (const [key, issue] of issueMap.entries()) {
+      // Get snapshots for this specific issue from the pre-fetched data
+      const snapshots = snapshotsByIssue.get(key) || []
 
       // Calculate velocity (signals per hour)
       let velocity = 0
@@ -131,10 +143,10 @@ export async function GET(request: NextRequest) {
           }
         }
       } else if (issue.signalCount > 1) {
-        // No snapshots yet, but we have multiple signals in the current hour
-        // Estimate velocity based on current hour activity
+        // No snapshots yet, but we have multiple signals in the last 6 hours
+        // Estimate velocity based on recent activity
         const hoursSinceFirstSignal = (Date.now() - issue.latestTimestamp.getTime()) / (1000 * 60 * 60)
-        if (hoursSinceFirstSignal > 0.1) { // At least 6 minutes of data
+        if (hoursSinceFirstSignal > 0.25) { // At least 15 minutes of data
           velocity = issue.totalIntensity / Math.max(hoursSinceFirstSignal, 1)
           projectedIntensity = issue.totalIntensity + (velocity * 2)
           confidence = 0.3 // Lower confidence for new issues
@@ -147,7 +159,8 @@ export async function GET(request: NextRequest) {
       }
 
       // Only include issues that are growing (velocity > threshold)
-      if (velocity > 5) { // More than 5 signals/hour growth
+      // Lowered threshold from 5 to 1 to make it more sensitive
+      if (velocity > 2) { // More than 1 signal/hour growth
         // Estimate affected users (could be based on intensity and product area data)
         // For now, use intensity * average users per signal (estimate: 50-200 users per signal)
         const avgUsersPerSignal = 100

@@ -17,10 +17,23 @@ export default async function DashboardPage() {
   // Fetch real dashboard data from API
   let dashboardData = {
     overallCHI: 50,
+    chiTrend: 0,
+    previousCHI: 50,
     productAreas: [],
     emergingIssues: [],
     sentimentTimeline: [],
     sourceData: [],
+    advancedMetrics: {
+      signalTrend: { current: 0, previous: 0, percentageChange: 0 },
+      newIssues: { count: 0, total: 0 },
+      responseTime: { averageMinutes: 0, trendMinutes: 0, sampleSize: 0 },
+      positiveTrends: { count: 0 },
+    },
+    realtimeData: {
+      realtimeSignals: [],
+      issueVelocity: [],
+      sentimentDistribution: { positive: 0, neutral: 0, negative: 0 },
+    },
   }
 
   let outageData = {
@@ -96,10 +109,23 @@ export default async function DashboardPage() {
 
   // Extract data with fallbacks
   const overallCHI = dashboardData.overallCHI || 50
+  const chiTrend = dashboardData.chiTrend || 0
+  const previousCHI = dashboardData.previousCHI || 50
   const productAreas = dashboardData.productAreas || []
   const emergingIssues = dashboardData.emergingIssues || []
   const sentimentData = dashboardData.sentimentTimeline || []
   const sourceData = dashboardData.sourceData || []
+  const advancedMetrics = dashboardData.advancedMetrics || {
+    signalTrend: { current: 0, previous: 0, percentageChange: 0 },
+    newIssues: { count: 0, total: 0 },
+    responseTime: { averageMinutes: 0, trendMinutes: 0, sampleSize: 0 },
+    positiveTrends: { count: 0 },
+  }
+  const realtimeData = dashboardData.realtimeData || {
+    realtimeSignals: [],
+    issueVelocity: [],
+    sentimentDistribution: { positive: 0, neutral: 0, negative: 0 },
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-tmobile-magenta/3 to-purple-50">
@@ -110,10 +136,14 @@ export default async function DashboardPage() {
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <DashboardContent
           overallCHI={overallCHI}
+          chiTrend={chiTrend}
+          previousCHI={previousCHI}
           productAreas={productAreas}
           emergingIssues={emergingIssues}
           sentimentData={sentimentData}
           sourceData={sourceData}
+          advancedMetrics={advancedMetrics}
+          realtimeData={realtimeData}
           outageData={outageData}
           earlyWarningData={earlyWarningData}
         />

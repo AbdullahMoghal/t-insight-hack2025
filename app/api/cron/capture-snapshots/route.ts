@@ -29,8 +29,9 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
 
-    // Get signals from the last hour to calculate current intensity
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    // Get signals from the last 24 hours to calculate current intensity
+    // Changed from 1 hour to 24 hours to ensure we capture data even with infrequent signals
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
 
     const { data: recentSignals, error: signalsError } = await supabase
       .from('signals')
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
         intensity,
         product_area_id
       `)
-      .gte('detected_at', oneHourAgo)
+      .gte('detected_at', twentyFourHoursAgo)
 
     if (signalsError) {
       console.error('Error fetching signals:', signalsError)

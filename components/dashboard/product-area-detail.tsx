@@ -209,7 +209,7 @@ export function ProductAreaDetail({
                       boxShadow: `0 0 20px ${productArea.color}60`
                     }}
                   />
-                  <DialogTitle className="text-4xl font-bold bg-gradient-to-r from-tmobile-black to-tmobile-gray-700 bg-clip-text text-transparent">
+                  <DialogTitle className="text-4xl font-bold text-tmobile-black">
                     {productArea.name}
                   </DialogTitle>
                 </div>

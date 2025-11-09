@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/dialog'
 import { toast } from 'sonner'
 import { Save, ExternalLink } from 'lucide-react'
+import { formatMinutes } from '@/lib/utils/advanced-metrics'
 
 interface ProductArea {
   id: string
@@ -96,22 +97,74 @@ interface EarlyWarningData {
   totalRising: number
 }
 
+interface AdvancedMetrics {
+  signalTrend: {
+    current: number
+    previous: number
+    percentageChange: number
+  }
+  newIssues: {
+    count: number
+    total: number
+  }
+  responseTime: {
+    averageMinutes: number
+    trendMinutes: number
+    sampleSize: number
+  }
+  positiveTrends: {
+    count: number
+  }
+}
+
+interface RealtimeData {
+  realtimeSignals: Array<{
+    id: string
+    topic: string
+    sentiment: number
+    source: string
+    timestamp: Date
+    productArea: string
+    color: string
+  }>
+  issueVelocity: Array<{
+    name: string
+    growing: number
+    stable: number
+    declining: number
+    color: string
+  }>
+  sentimentDistribution: {
+    positive: number
+    neutral: number
+    negative: number
+  }
+}
+
 interface DashboardContentProps {
   overallCHI: number
+  chiTrend: number
+  previousCHI: number
   productAreas: ProductArea[]
   emergingIssues: Issue[]
   sentimentData: DataPoint[]
   sourceData: SourceData[]
+  advancedMetrics: AdvancedMetrics
+  realtimeData: RealtimeData
   outageData?: OutageData
   earlyWarningData?: EarlyWarningData
 }
 
 export function DashboardContent({
   overallCHI,
+  chiTrend,
+  previousCHI,
   productAreas,
   emergingIssues,
   sentimentData,
   sourceData,
+  advancedMetrics,
+  realtimeData,
   outageData,
   earlyWarningData,
 }: DashboardContentProps) {
@@ -126,6 +179,8 @@ export function DashboardContent({
   const [sentimentTimeRange, setSentimentTimeRange] = useState<'24h' | '7d' | '30d'>('24h')
   const [sentimentDataState, setSentimentDataState] = useState<DataPoint[]>(sentimentData)
   const [originalSentimentData] = useState<DataPoint[]>(sentimentData) // Store original 24h data
+  const [earlyWarningDataState, setEarlyWarningDataState] = useState<EarlyWarningData | undefined>(earlyWarningData)
+  const [isLoadingEarlyWarning, setIsLoadingEarlyWarning] = useState(false)
 
   useEffect(() => {
     // Mark as ready after component mounts and data is available
@@ -133,6 +188,37 @@ export function DashboardContent({
       setIsReady(true)
     }, 100)
     return () => clearTimeout(timer)
+  }, [])
+
+  // Fetch early warning data on mount
+  useEffect(() => {
+    const fetchEarlyWarningData = async () => {
+      setIsLoadingEarlyWarning(true)
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+        const response = await fetch(`${baseUrl}/api/dashboard/early-warning`, {
+          cache: 'no-store',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          if (data.success) {
+            setEarlyWarningDataState(data)
+          }
+        } else {
+          console.error('Failed to fetch early warning data:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error fetching early warning data:', error)
+      } finally {
+        setIsLoadingEarlyWarning(false)
+      }
+    }
+
+    fetchEarlyWarningData()
   }, [])
 
   // Fetch sentiment data when time range changes
@@ -325,7 +411,7 @@ export function DashboardContent({
   }
 
   // Transform early warning data for the component
-  const risingIssues = (earlyWarningData?.risingIssues || []).map((issue) => ({
+  const risingIssues = (earlyWarningDataState?.risingIssues || []).map((issue) => ({
     id: `${issue.topic}-${issue.productAreaId}`,
     topic: issue.topic,
     productArea: issue.productAreaName,
@@ -339,33 +425,17 @@ export function DashboardContent({
     affectedUsers: issue.affectedUsers,
   }))
 
-  // Mock data for new components (will be replaced with real data from API)
-  const mockRealtimeSignals = emergingIssues.slice(0, 10).map((issue) => ({
-    id: issue.id,
-    topic: issue.topic,
-    sentiment: issue.sentiment,
-    source: 'Reddit',
-    timestamp: new Date(),
-    productArea: issue.productArea,
-    color: productAreas.find((pa) => pa.name === issue.productArea)?.color || '#E8258E',
-  }))
+  // Use real realtime signals from API
+  const realtimeSignals = realtimeData.realtimeSignals
 
-  // Positive trends are generated from product areas with improving CHI scores
+  // Use real issue velocity data from API
+  const velocityData = realtimeData.issueVelocity
 
-  const mockVelocityData = productAreas.map((area) => ({
-    name: area.name,
-    growing: Math.floor(Math.random() * 10),
-    stable: Math.floor(Math.random() * 15),
-    declining: Math.floor(Math.random() * 8),
-    color: area.color,
-  }))
+  // Use real sentiment distribution from API
+  const sentimentDistributionData = realtimeData.sentimentDistribution
 
+  // Calculate total signals for display
   const totalSignals = emergingIssues.reduce((acc, issue) => acc + issue.intensity, 0)
-  const mockSentimentData = {
-    positive: Math.floor(totalSignals * 0.4),
-    neutral: Math.floor(totalSignals * 0.3),
-    negative: Math.floor(totalSignals * 0.3),
-  }
 
   return (
     <>
@@ -389,8 +459,8 @@ export function DashboardContent({
             <CHIGauge
               score={overallCHI}
               size="lg"
-              trend={-2.3}
-              previousScore={overallCHI + 2.3}
+              trend={chiTrend}
+              previousScore={previousCHI}
             />
           </div>
 
@@ -401,7 +471,13 @@ export function DashboardContent({
               <div className="text-3xl font-bold text-[#E8258E]">
                 {totalSignals.toLocaleString()}
               </div>
-              <div className="text-xs text-green-600 mt-1">↑ 12% vs last hour</div>
+              <div className={`text-xs mt-1 ${
+                advancedMetrics.signalTrend.percentageChange >= 0
+                  ? 'text-green-600'
+                  : 'text-red-600'
+              }`}>
+                {advancedMetrics.signalTrend.percentageChange >= 0 ? '↑' : '↓'} {Math.abs(advancedMetrics.signalTrend.percentageChange)}% vs last hour
+              </div>
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
@@ -409,15 +485,19 @@ export function DashboardContent({
               <div className="text-3xl font-bold text-orange-600">
                 {emergingIssues.length}
               </div>
-              <div className="text-xs text-red-600 mt-1">↑ 3 new issues</div>
+              <div className={`text-xs mt-1 ${
+                advancedMetrics.newIssues.count > 0 ? 'text-red-600' : 'text-green-600'
+              }`}>
+                {advancedMetrics.newIssues.count > 0 ? '↑' : '→'} {advancedMetrics.newIssues.count} new issue{advancedMetrics.newIssues.count !== 1 ? 's' : ''}
+              </div>
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
               <div className="text-xs text-tmobile-gray-600 mb-1">Positive Trends</div>
               <div className="text-3xl font-bold text-green-600">
-                {productAreas.filter((area) => area.trend > 0).length}
+                {advancedMetrics.positiveTrends.count}
               </div>
-              <div className="text-xs text-green-600 mt-1">📈 Improving areas</div>
+              <div className="text-xs text-green-600 mt-1">📈 Improving area{advancedMetrics.positiveTrends.count !== 1 ? 's' : ''}</div>
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
@@ -430,18 +510,39 @@ export function DashboardContent({
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
               <div className="text-xs text-tmobile-gray-600 mb-1">Rising Issues</div>
-              <div className="text-3xl font-bold text-red-600">
-                {risingIssues.length}
-              </div>
-              <div className="text-xs text-red-600 mt-1">⚠️ Needs attention</div>
+              {isLoadingEarlyWarning ? (
+                <div className="flex items-center justify-center h-12">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="text-3xl font-bold text-red-600">
+                    {risingIssues.length}
+                  </div>
+                  <div className="text-xs text-red-600 mt-1">⚠️ Needs attention</div>
+                </>
+              )}
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
               <div className="text-xs text-tmobile-gray-600 mb-1">Avg Response Time</div>
               <div className="text-3xl font-bold text-purple-600">
-                5m
+                {advancedMetrics.responseTime.averageMinutes > 0
+                  ? formatMinutes(advancedMetrics.responseTime.averageMinutes)
+                  : 'N/A'}
               </div>
-              <div className="text-xs text-green-600 mt-1">↓ 2m faster</div>
+              <div className={`text-xs mt-1 ${
+                advancedMetrics.responseTime.trendMinutes < 0
+                  ? 'text-green-600'
+                  : advancedMetrics.responseTime.trendMinutes > 0
+                  ? 'text-red-600'
+                  : 'text-tmobile-gray-600'
+              }`}>
+                {advancedMetrics.responseTime.trendMinutes < 0 && `↓ ${formatMinutes(Math.abs(advancedMetrics.responseTime.trendMinutes))} faster`}
+                {advancedMetrics.responseTime.trendMinutes > 0 && `↑ ${formatMinutes(advancedMetrics.responseTime.trendMinutes)} slower`}
+                {advancedMetrics.responseTime.trendMinutes === 0 && advancedMetrics.responseTime.sampleSize > 0 && '→ No change'}
+                {advancedMetrics.responseTime.sampleSize === 0 && 'Not enough data'}
+              </div>
             </div>
           </div>
         </div>
@@ -506,12 +607,12 @@ export function DashboardContent({
             </div>
 
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-200">
-              <div className="text-sm text-tmobile-gray-600 mb-1">View Map</div>
+              <div className="text-sm text-tmobile-gray-600 mb-1">Geographic View</div>
               <a
                 href="/dashboard/geo"
                 className="inline-flex items-center text-sm font-semibold text-[#E8258E] hover:text-[#C4006D] transition-colors"
               >
-                Go to GeoMap →
+                Regional Outage Map →
               </a>
             </div>
           </div>
@@ -520,7 +621,7 @@ export function DashboardContent({
 
       {/* Critical Alerts Row */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <EarlyWarningSystem risingIssues={risingIssues} />
+        <EarlyWarningSystem risingIssues={risingIssues} isLoading={isLoadingEarlyWarning} />
         <TopPerformers productAreas={productAreas} />
       </section>
 
@@ -552,10 +653,10 @@ export function DashboardContent({
       {/* Live Activity and Analytics Row */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         <div className="lg:col-span-2">
-          <RealtimeActivityFeed signals={mockRealtimeSignals} />
+          <RealtimeActivityFeed signals={realtimeSignals} />
         </div>
         <div className="lg:col-span-1">
-          <SentimentDistribution data={mockSentimentData} sourceData={sourceData} />
+          <SentimentDistribution data={sentimentDistributionData} sourceData={sourceData} />
         </div>
       </section>
 
@@ -575,9 +676,9 @@ export function DashboardContent({
 
       {/* Analytics Row */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <IssueVelocityChart data={mockVelocityData} />
-        <SentimentTimeline 
-          data={sentimentDataState} 
+        <IssueVelocityChart data={velocityData} />
+        <SentimentTimeline
+          data={sentimentDataState}
           timeRange={sentimentTimeRange}
           onTimeRangeChange={(range) => setSentimentTimeRange(range)}
         />

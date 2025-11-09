@@ -164,7 +164,7 @@ export function EmergingIssuesTable({
                     onClick={() => onCreateOpportunity?.(issue.id)}
                     className="bg-[#E8258E] hover:bg-[#D01A7A] text-white"
                   >
-                    Create Opportunity
+                    Generate AI Insights
                   </Button>
                 </TableCell>
               </TableRow>

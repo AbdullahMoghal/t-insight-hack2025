@@ -16,9 +16,19 @@ interface RisingIssue {
 
 interface EarlyWarningSystemProps {
   risingIssues?: RisingIssue[]
+  isLoading?: boolean
 }
 
-export function EarlyWarningSystem({ risingIssues = [] }: EarlyWarningSystemProps) {
+export function EarlyWarningSystem({ risingIssues = [], isLoading = false }: EarlyWarningSystemProps) {
+  // Normalize topic to title case
+  const toTitleCase = (str: string) => {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+
   const getSeverityColor = (velocity: number) => {
     if (velocity > 50) return 'border-red-500 bg-red-50'
     if (velocity > 25) return 'border-orange-500 bg-orange-50'
@@ -53,8 +63,16 @@ export function EarlyWarningSystem({ risingIssues = [] }: EarlyWarningSystemProp
       </div>
 
       {/* Rising Issues */}
-      <div className="p-6">
-        {risingIssues.length === 0 ? (
+      <div className="relative max-h-[400px] overflow-y-auto p-6">
+        {isLoading ? (
+          <div className="text-center py-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 mb-3">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+            </div>
+            <p className="text-sm font-medium text-orange-800">Analyzing Trends...</p>
+            <p className="text-xs text-orange-600 mt-1">Detecting rapidly escalating issues</p>
+          </div>
+        ) : risingIssues.length === 0 ? (
           <div className="text-center py-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-3">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +100,7 @@ export function EarlyWarningSystem({ risingIssues = [] }: EarlyWarningSystemProp
                           style={{ backgroundColor: issue.color }}
                         />
                         <h4 className="font-semibold text-tmobile-black text-sm">
-                          {issue.topic}
+                          {toTitleCase(issue.topic)}
                         </h4>
                       </div>
                       <p className="text-xs text-tmobile-gray-600">
