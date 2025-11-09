@@ -126,21 +126,13 @@ export default async function DashboardPage() {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <Image
-                  src="/logo.svg"
-                  alt="T-Mobile Logo"
-                  width={40}
-                  height={40}
-                  className="relative drop-shadow-sm"
-                />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white">
-                  T-Insight
-                </h1>
-                <p className="text-sm text-white/90">Customer Intelligence Dashboard</p>
-              </div>
+              <Image
+                src="/navbar-logo.png"
+                alt="T-Insight Logo"
+                width={150}
+                height={70}
+                className="relative"
+              />
             </div>
             <div className="flex items-center gap-4">
               <a
