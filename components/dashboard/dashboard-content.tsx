@@ -9,7 +9,7 @@ import { SentimentTimeline } from './sentiment-timeline'
 import { ProductAreaDetail } from './product-area-detail'
 import { RealtimeActivityFeed } from './realtime-activity-feed'
 import { EarlyWarningSystem } from './early-warning-system'
-import { MomentsOfDelight } from './moments-of-delight'
+import { TopPerformers } from './top-performers'
 import { IssueVelocityChart } from './issue-velocity-chart'
 import { SentimentDistribution } from './sentiment-distribution'
 import { SplashScreen } from '@/components/ui/splash-screen'
@@ -350,20 +350,7 @@ export function DashboardContent({
     color: productAreas.find((pa) => pa.name === issue.productArea)?.color || '#E8258E',
   }))
 
-  const mockDelightMoments = emergingIssues
-    .filter((issue) => issue.sentiment > 0.5)
-    .slice(0, 5)
-    .map((issue) => ({
-      id: issue.id,
-      topic: issue.topic,
-      productArea: issue.productArea,
-      color: productAreas.find((pa) => pa.name === issue.productArea)?.color || '#E8258E',
-      sentiment: issue.sentiment,
-      intensity: issue.intensity,
-      timestamp: new Date(),
-      source: 'Reddit',
-      highlights: [`Great improvement in ${issue.topic}`],
-    }))
+  // Positive trends are generated from product areas with improving CHI scores
 
   const mockVelocityData = productAreas.map((area) => ({
     name: area.name,
@@ -426,11 +413,11 @@ export function DashboardContent({
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
-              <div className="text-xs text-tmobile-gray-600 mb-1">Positive Moments</div>
+              <div className="text-xs text-tmobile-gray-600 mb-1">Positive Trends</div>
               <div className="text-3xl font-bold text-green-600">
-                {mockDelightMoments.length}
+                {productAreas.filter((area) => area.trend > 0).length}
               </div>
-              <div className="text-xs text-green-600 mt-1">✨ Trending up</div>
+              <div className="text-xs text-green-600 mt-1">📈 Improving areas</div>
             </div>
 
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
@@ -534,7 +521,7 @@ export function DashboardContent({
       {/* Critical Alerts Row */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <EarlyWarningSystem risingIssues={risingIssues} />
-        <MomentsOfDelight moments={mockDelightMoments} />
+        <TopPerformers productAreas={productAreas} />
       </section>
 
       {/* Product Area Cards Grid */}
