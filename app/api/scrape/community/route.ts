@@ -4,10 +4,8 @@ import { generateCommunityData } from '@/lib/scraper/community';
 
 export async function GET() {
   try {
-    // Generate mock T-Mobile Community data
     const result = generateCommunityData();
 
-    // Store in Supabase (using service role to bypass RLS)
     const supabase = createServiceClient();
 
     const { data, error } = await supabase

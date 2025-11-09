@@ -4,10 +4,8 @@ import { scrapeReddit } from '@/lib/scraper/reddit';
 
 export async function GET() {
   try {
-    // Scrape Reddit
     const result = await scrapeReddit();
 
-    // Store in Supabase (using service role to bypass RLS)
     const supabase = createServiceClient();
 
     const { data, error } = await supabase

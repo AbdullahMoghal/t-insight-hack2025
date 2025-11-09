@@ -16,7 +16,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
   try {
     switch (source) {
       case 'reddit':
-        // Reddit posts: rawPayload IS the array of posts
         if (Array.isArray(rawPayload)) {
           return rawPayload
             .map((post: any) => `${post.title} ${post.selftext || ''}`.trim())
@@ -25,7 +24,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return '';
 
       case 'downdetector':
-        // DownDetector: rawPayload IS report_data object
         if (rawPayload?.user_comments) {
           return rawPayload.user_comments
             .map((comment: any) => comment.text)
@@ -34,7 +32,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return '';
 
       case 'outage-report':
-        // Outage.report: rawPayload IS outage_data object
         const descriptions = rawPayload?.events
           ?.map((event: any) => event.description || '')
           .join('\n\n') || '';
@@ -42,7 +39,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return `${descriptions}\n\n${mentions}`.trim();
 
       case 'tmobile-community':
-        // Community: rawPayload IS the discussions array
         if (Array.isArray(rawPayload)) {
           return rawPayload
             .map((discussion: any) => `${discussion.title} ${discussion.excerpt}`.trim())
@@ -51,7 +47,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return '';
 
       case 'customer-feedback':
-        // Customer feedback: rawPayload is full object with comments array
         if (Array.isArray(rawPayload.comments)) {
           return rawPayload.comments
             .map((comment: any) => comment.comment)
@@ -60,7 +55,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return '';
 
       case 'google-news':
-        // News: rawPayload IS the articles array
         if (Array.isArray(rawPayload)) {
           return rawPayload
             .map((article: any) => `${article.title} ${article.description || ''}`.trim())
@@ -69,7 +63,6 @@ function extractTextFromEvent(rawPayload: any, source: string): string {
         return '';
 
       case 'istheservicedown':
-        // IsTheServiceDown: rawPayload IS status_data object
         const statusMsg = rawPayload?.status_message || '';
         const socialMentions = rawPayload?.social_mentions
           ?.map((mention: any) => mention.text)
@@ -101,7 +94,6 @@ function extractGeoData(rawPayload: any, source: string): any {
       }
     }
 
-    // DownDetector: rawPayload IS report_data
     if (source === 'downdetector' && rawPayload?.user_comments) {
       const locations = rawPayload.user_comments
         .filter((c: any) => c.location)
@@ -152,7 +144,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
   try {
     switch (source) {
       case 'reddit':
-        // One signal per Reddit post
         if (Array.isArray(rawPayload)) {
           return rawPayload.map((post: any) => ({
             text: `${post.title} ${post.selftext || ''}`.trim(),
@@ -162,7 +153,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'google-news':
-        // One signal per news article
         if (Array.isArray(rawPayload)) {
           return rawPayload.map((article: any) => ({
             text: `${article.title} ${article.description || ''}`.trim(),
@@ -172,7 +162,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'tmobile-community':
-        // One signal per community discussion
         if (Array.isArray(rawPayload)) {
           return rawPayload.map((discussion: any) => ({
             text: `${discussion.title} ${discussion.excerpt}`.trim(),
@@ -182,7 +171,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'outage-report':
-        // One signal per outage event
         if (rawPayload?.events && Array.isArray(rawPayload.events)) {
           return rawPayload.events.map((event: any) => ({
             text: event.description || '',
@@ -192,7 +180,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'downdetector':
-        // One signal per user comment
         if (rawPayload?.user_comments && Array.isArray(rawPayload.user_comments)) {
           return rawPayload.user_comments.map((comment: any) => ({
             text: comment.text || '',
@@ -202,7 +189,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'customer-feedback':
-        // One signal per customer comment
         if (Array.isArray(rawPayload.comments)) {
           return rawPayload.comments.map((comment: any) => ({
             text: comment.comment,
@@ -212,7 +198,6 @@ function extractIndividualItems(rawPayload: any, source: string): Array<{ text: 
         return [];
 
       case 'istheservicedown':
-        // Keep as single signal (already aggregated data)
         const statusMsg = rawPayload?.status_message || '';
         const socialMentions = rawPayload?.social_mentions
           ?.map((mention: any) => mention.text)
@@ -240,19 +225,14 @@ async function processSingleItem(
   supabase: any
 ): Promise<boolean> {
   try {
-    // Run sentiment analysis
     const sentimentResult = analyzeSentiment(text);
 
-    // Detect topic and keywords
     const topicResult = detectTopic(text);
 
-    // Map product area to ID
     const productAreaId = await mapProductAreaToId(topicResult.productArea, supabase);
 
-    // Check for existing duplicates within last 30 minutes
     const thirtyMinsAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
 
-    // Only query for duplicates if we have a product area
     let recentSignals: any[] = [];
     if (productAreaId) {
       const { data, error: queryError } = await supabase
@@ -268,7 +248,6 @@ async function processSingleItem(
       }
     }
 
-    // Create new signal object
     const newSignal: Signal = {
       topic: topicResult.topic,
       keywords: topicResult.keywords,
@@ -277,7 +256,7 @@ async function processSingleItem(
       source: event.source,
       product_area: topicResult.productArea,
       meta: {
-        original_text: text.substring(0, 1000), // Limit to 1000 chars
+        original_text: text.substring(0, 1000),
         confidence: topicResult.confidence,
         sentiment_confidence: sentimentResult.confidence,
         raw_event_id: event.id,
@@ -285,13 +264,11 @@ async function processSingleItem(
       },
     };
 
-    // Check for duplicates
     const existingDuplicate = recentSignals.length > 0
       ? findExistingDuplicate(newSignal, recentSignals)
       : null;
 
     if (existingDuplicate) {
-      // Update existing signal (increment intensity, update sentiment)
       const mergedSignal = mergeSignals(existingDuplicate, newSignal);
 
       const { error: updateError } = await supabase
@@ -308,9 +285,8 @@ async function processSingleItem(
         return false;
       }
 
-      return true; // Updated successfully
+      return true;
     } else {
-      // Insert new signal
       const { error: insertError } = await supabase
         .from('signals')
         .insert({
@@ -329,7 +305,7 @@ async function processSingleItem(
         return false;
       }
 
-      return true; // Inserted successfully
+      return true;
     }
   } catch (error) {
     console.error('Error processing single item:', error);
@@ -346,7 +322,6 @@ async function processEvent(
   supabase: any
 ): Promise<{ success: boolean; signalsCreated: number }> {
   try {
-    // Extract individual items (can be multiple for customer-feedback)
     const items = extractIndividualItems(event.raw_payload, event.source);
 
     if (items.length === 0) {
@@ -354,7 +329,6 @@ async function processEvent(
       return { success: true, signalsCreated: 0 };
     }
 
-    // Process each item
     let signalsCreated = 0;
     for (const item of items) {
       const success = await processSingleItem(item.text, item.geo, event, supabase);
@@ -376,13 +350,12 @@ export async function POST(request: NextRequest) {
   try {
     const supabase = createServiceClient();
 
-    // Query unprocessed events (processed = false)
     const { data: unprocessedEvents, error: queryError } = await supabase
       .from('raw_events')
       .select('*')
       .eq('processed', false)
       .order('created_at', { ascending: true })
-      .limit(100); // Process 100 at a time
+      .limit(100);
 
     if (queryError) {
       console.error('Error querying raw events:', queryError);
@@ -402,7 +375,6 @@ export async function POST(request: NextRequest) {
 
     console.log(`Processing ${unprocessedEvents.length} unprocessed events...`);
 
-    // Process each event
     let totalSignalsCreated = 0;
     let successCount = 0;
     const processedEventIds: string[] = [];
@@ -417,7 +389,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Mark events as processed
     if (processedEventIds.length > 0) {
       const { error: updateError } = await supabase
         .from('raw_events')
@@ -452,7 +423,6 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = createServiceClient();
 
-    // Count unprocessed events
     const { count: unprocessedCount, error: countError } = await supabase
       .from('raw_events')
       .select('*', { count: 'exact', head: true })
@@ -466,7 +436,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Count total signals
     const { count: signalCount, error: signalError } = await supabase
       .from('signals')
       .select('*', { count: 'exact', head: true });

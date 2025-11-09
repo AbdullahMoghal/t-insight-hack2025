@@ -29,7 +29,6 @@ interface ScraperResult {
 
 export async function POST(request: NextRequest) {
   try {
-    // Verify CRON_SECRET
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET;
 
@@ -40,7 +39,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check authorization header
     const expectedAuth = `Bearer ${cronSecret}`;
     if (authHeader !== expectedAuth) {
       return NextResponse.json(
@@ -49,14 +47,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get base URL
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-    // Call all scrapers IN PARALLEL for much faster execution
     const results: Record<string, ScraperResult> = {};
     let totalCount = 0;
 
-    // Create array of fetch promises
     const scraperPromises = SCRAPER_ENDPOINTS.map(async (endpoint) => {
       const sourceName = endpoint.split('/').pop() || 'unknown';
 
@@ -110,10 +105,8 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Wait for all scrapers to complete in parallel
     const scraperResults = await Promise.all(scraperPromises);
 
-    // Aggregate results
     for (const { sourceName, result } of scraperResults) {
       results[sourceName] = result;
       if (result.status === 'success' && result.count) {
@@ -121,7 +114,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Return summary
     return NextResponse.json({
       success: true,
       timestamp: new Date().toISOString(),

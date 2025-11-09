@@ -57,7 +57,6 @@ export function generateDownDetectorData(): DownDetectorResult {
   } catch (error) {
     console.error('Failed to load downdetector data:', error);
 
-    // Return empty data as fallback
     return {
       report_data: {
         total_reports: 0,

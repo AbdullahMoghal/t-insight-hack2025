@@ -41,7 +41,7 @@ async function scrapeBestCompany(): Promise<CustomerComment[]> {
       headers: {
         'User-Agent': USER_AGENT,
       },
-      signal: AbortSignal.timeout(15000), // 15 second timeout
+      signal: AbortSignal.timeout(15000),
     });
 
     if (!response.ok) {
@@ -53,8 +53,7 @@ async function scrapeBestCompany(): Promise<CustomerComment[]> {
 
     const comments: CustomerComment[] = [];
 
-    // Step 1: Extract reviews from JSON-LD for date information
-    const jsonLdDates = new Map<string, string>(); // review text -> date
+    const jsonLdDates = new Map<string, string>();
 
     $('script[type="application/ld+json"]').each((_, elem) => {
       try {
@@ -65,43 +64,33 @@ async function scrapeBestCompany(): Promise<CustomerComment[]> {
 
           reviews.forEach((review: { reviewBody?: string; datePublished?: string }) => {
             if (review.reviewBody && review.datePublished) {
-              // Map review text to its date
               jsonLdDates.set(review.reviewBody.trim(), review.datePublished);
             }
           });
         }
       } catch {
-        // Skip invalid JSON
       }
     });
 
-    // Step 2: Parse HTML to extract reviews with location
-    // Look for review text divs
     $('div.whitespace-pre-line.break-words').each((_, elem) => {
       const reviewText = $(elem).text().trim();
       if (!reviewText || reviewText.length < 10) return;
 
-      // Find the parent review container
       const container = $(elem).closest('div.p-6, div[class*="review"], div.rounded');
 
-      // Look for location in the container
-      // Location is in: <span class="text-text-secondary">Ormond Beach, FL</span>
       let city: string | undefined;
       let state: string | undefined;
 
-      // Search for span with text-text-secondary class containing location
       container.find('span.text-text-secondary, .text-text-secondary').each((_, span) => {
         const locationText = $(span).text().trim();
-        // Match "City, ST" pattern
         const locationMatch = locationText.match(/^([^,]+),\s*([A-Z]{2})$/);
         if (locationMatch) {
           city = locationMatch[1].trim();
           state = locationMatch[2].trim();
-          return false; // break loop
+          return false;
         }
       });
 
-      // If not found in span, try searching in the entire container text
       if (!city || !state) {
         const containerText = container.text();
         const locationMatch = containerText.match(/\b([A-Z][a-zA-Z\s.]+),\s+([A-Z]{2})\b/);
@@ -111,7 +100,6 @@ async function scrapeBestCompany(): Promise<CustomerComment[]> {
         }
       }
 
-      // Get date from JSON-LD if available
       const date = jsonLdDates.get(reviewText);
 
       comments.push({
@@ -122,61 +110,49 @@ async function scrapeBestCompany(): Promise<CustomerComment[]> {
       });
     });
 
-    // If we found comments, return them
     if (comments.length > 0) {
-      console.log(`✅ Successfully scraped ${comments.length} comments from BestCompany`);
+      console.log(`Successfully scraped ${comments.length} comments from BestCompany`);
       return comments;
     }
 
-    // If no comments found, throw error to trigger fallback
     throw new Error('No comments found on page');
 
   } catch (error) {
-    console.warn('⚠️  BestCompany scraping failed:', error instanceof Error ? error.message : error);
-    throw error; // Re-throw to trigger fallback
+    console.warn('BestCompany scraping failed:', error instanceof Error ? error.message : error);
+    throw error;
   }
 }
 
-/**
- * Load sample data from local JSON file
- */
 function loadSampleData(): CustomerComment[] {
   try {
     const fileContent = readFileSync(SAMPLE_DATA_PATH, 'utf-8');
     const data = JSON.parse(fileContent) as CustomerComment[];
-    console.log(`📦 Loaded ${data.length} comments from sample data`);
+    console.log(`Loaded ${data.length} comments from sample data`);
     return data;
   } catch (error) {
-    console.error('❌ Failed to load sample data:', error);
+    console.error('Failed to load sample data:', error);
     throw new Error('Sample data file not found or invalid');
   }
 }
 
-/**
- * Main scraper function with hybrid data approach
- */
 export async function scrapeCustomerFeedback(): Promise<CustomerFeedbackResult> {
   const allComments: CustomerComment[] = [];
   let dataSource: 'scraped' | 'sample' | 'combined';
 
-  // Always load sample data (300 comments)
   const sampleComments = loadSampleData();
-  console.log(`📦 Loaded ${sampleComments.length} sample comments`);
+  console.log(`Loaded ${sampleComments.length} sample comments`);
 
-  // Try to scrape BestCompany.com
   try {
     const scrapedComments = await scrapeBestCompany();
-    console.log(`🌐 Scraped ${scrapedComments.length} comments from BestCompany`);
+    console.log(`Scraped ${scrapedComments.length} comments from BestCompany`);
 
-    // Combine both datasets
     allComments.push(...scrapedComments);
     allComments.push(...sampleComments);
     dataSource = 'combined';
 
-    console.log(`✅ Total comments: ${allComments.length} (${scrapedComments.length} scraped + ${sampleComments.length} sample)`);
+    console.log(`Total comments: ${allComments.length} (${scrapedComments.length} scraped + ${sampleComments.length} sample)`);
   } catch (error) {
-    // If scraping fails, use only sample data
-    console.log('⚠️  Scraping failed, using sample data only:', error instanceof Error ? error.message : '');
+    console.log('Scraping failed, using sample data only:', error instanceof Error ? error.message : '');
     allComments.push(...sampleComments);
     dataSource = 'sample';
   }

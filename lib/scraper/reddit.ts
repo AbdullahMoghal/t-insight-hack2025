@@ -45,7 +45,6 @@ async function fetchSubredditRSS(subreddit: string): Promise<RedditPost[]> {
 
     const xml = await response.text();
 
-    // Parse RSS XML (simplified parser for Reddit's RSS format)
     const posts: RedditPost[] = [];
     const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
     const entries = xml.match(entryRegex) || [];
@@ -60,16 +59,15 @@ async function fetchSubredditRSS(subreddit: string): Promise<RedditPost[]> {
         const idMatch = entry.match(/\/comments\/([^/]+)\//);
 
         if (titleMatch && linkMatch && idMatch) {
-          // Extract text content from HTML (remove tags)
           let selftext = '';
           if (contentMatch) {
             selftext = contentMatch[1]
-              .replace(/<[^>]+>/g, '') // Remove HTML tags
+              .replace(/<[^>]+>/g, '')
               .replace(/&lt;/g, '<')
               .replace(/&gt;/g, '>')
               .replace(/&amp;/g, '&')
               .replace(/&quot;/g, '"')
-              .substring(0, 500); // Limit length
+              .substring(0, 500);
           }
 
           posts.push({
@@ -77,8 +75,8 @@ async function fetchSubredditRSS(subreddit: string): Promise<RedditPost[]> {
             title: titleMatch[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'),
             selftext,
             author: authorMatch?.[1] || 'unknown',
-            score: 0, // RSS doesn't provide score
-            num_comments: 0, // RSS doesn't provide comment count
+            score: 0,
+            num_comments: 0,
             created_utc: updatedMatch ? Math.floor(new Date(updatedMatch[1]).getTime() / 1000) : 0,
             permalink: linkMatch[1],
             url: linkMatch[1],
@@ -87,11 +85,10 @@ async function fetchSubredditRSS(subreddit: string): Promise<RedditPost[]> {
         }
       } catch (parseError) {
         console.error('Error parsing RSS entry:', parseError);
-        // Continue to next entry
       }
     }
 
-    console.log(`📡 Fetched ${posts.length} posts from r/${subreddit} via RSS`);
+    console.log(`Fetched ${posts.length} posts from r/${subreddit} via RSS`);
     return posts;
   } catch (error) {
     console.error(`Error fetching RSS for r/${subreddit}:`, error);
@@ -99,10 +96,6 @@ async function fetchSubredditRSS(subreddit: string): Promise<RedditPost[]> {
   }
 }
 
-/**
- * Fetch posts from a single subreddit with retry logic
- * Falls back to RSS if JSON API is blocked
- */
 async function fetchSubreddit(subreddit: string, retries: number = 3): Promise<RedditPost[]> {
   const url = `https://www.reddit.com/r/${subreddit}.json?limit=100`;
 
@@ -122,20 +115,18 @@ async function fetchSubreddit(subreddit: string, retries: number = 3): Promise<R
           'Sec-Fetch-Site': 'none',
           'Cache-Control': 'max-age=0',
         },
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: AbortSignal.timeout(10000),
       });
 
       if (!response.ok) {
-        // If it's a 403 (blocked), immediately fall back to RSS
         if (response.status === 403) {
-          console.log(`🚫 JSON API blocked (403) for r/${subreddit}, falling back to RSS feed...`);
+          console.log(`JSON API blocked (403) for r/${subreddit}, falling back to RSS feed...`);
           return await fetchSubredditRSS(subreddit);
         }
 
-        // If it's a rate limit (429) or server error (5xx), retry
         if ((response.status === 429 || response.status >= 500) && attempt < retries) {
-          const waitTime = attempt * 2000; // Exponential backoff: 2s, 4s, 6s
-          console.log(`⏳ Rate limited or server error, retrying r/${subreddit} in ${waitTime}ms (attempt ${attempt}/${retries})`);
+          const waitTime = attempt * 2000;
+          console.log(`Rate limited or server error, retrying r/${subreddit} in ${waitTime}ms (attempt ${attempt}/${retries})`);
           await new Promise(resolve => setTimeout(resolve, waitTime));
           continue;
         }
@@ -144,12 +135,10 @@ async function fetchSubreddit(subreddit: string, retries: number = 3): Promise<R
 
       const data = await response.json();
 
-      // Validate response structure
       if (!data?.data?.children) {
         throw new Error('Invalid Reddit API response structure');
       }
 
-      // Extract posts from Reddit's data structure
       const posts: RedditPost[] = data.data.children.map((child: any) => ({
         id: child.data.id,
         title: child.data.title,
@@ -165,25 +154,22 @@ async function fetchSubreddit(subreddit: string, retries: number = 3): Promise<R
 
       return posts;
     } catch (error) {
-      // If it's the last attempt, try RSS fallback before giving up
       if (attempt === retries) {
-        console.error(`❌ Error fetching r/${subreddit} after ${retries} attempts, trying RSS fallback...`);
+        console.error(`Error fetching r/${subreddit} after ${retries} attempts, trying RSS fallback...`);
         try {
           return await fetchSubredditRSS(subreddit);
         } catch (rssError) {
-          console.error(`❌ RSS fallback also failed for r/${subreddit}`);
-          throw error; // Throw original error
+          console.error(`RSS fallback also failed for r/${subreddit}`);
+          throw error;
         }
       }
 
-      // Otherwise, log and retry
       const waitTime = attempt * 2000;
-      console.log(`⚠️  Error on attempt ${attempt}/${retries} for r/${subreddit}, retrying in ${waitTime}ms...`);
+      console.log(`Error on attempt ${attempt}/${retries} for r/${subreddit}, retrying in ${waitTime}ms...`);
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
   }
 
-  // This should never be reached, but TypeScript needs it
   throw new Error(`Failed to fetch r/${subreddit} after ${retries} attempts`);
 }
 
@@ -198,25 +184,23 @@ export async function scrapeReddit(): Promise<RedditScraperResult> {
     try {
       const posts = await fetchSubreddit(subreddit);
       allPosts.push(...posts);
-      console.log(`✅ Successfully fetched ${posts.length} posts from r/${subreddit}`);
+      console.log(`Successfully fetched ${posts.length} posts from r/${subreddit}`);
 
-      // Be polite: wait 1 second between requests
       if (SUBREDDITS.indexOf(subreddit) < SUBREDDITS.length - 1) {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-      console.error(`❌ Failed to fetch r/${subreddit}: ${errorMsg}`);
+      console.error(`Failed to fetch r/${subreddit}: ${errorMsg}`);
       errors.push(`r/${subreddit}: ${errorMsg}`);
     }
   }
 
-  // If ALL subreddits failed, throw an error instead of returning empty array
   if (allPosts.length === 0 && errors.length > 0) {
     throw new Error(`Failed to fetch any Reddit posts. Errors: ${errors.join(', ')}`);
   }
 
-  console.log(`📊 Reddit scraper completed: ${allPosts.length} posts from ${SUBREDDITS.length - errors.length}/${SUBREDDITS.length} subreddits`);
+  console.log(`Reddit scraper completed: ${allPosts.length} posts from ${SUBREDDITS.length - errors.length}/${SUBREDDITS.length} subreddits`);
 
   return {
     posts: allPosts,

@@ -9,7 +9,6 @@
 
 import { createServiceClient } from '@/lib/supabase/service';
 
-// Cache for CHI values to reduce database load
 interface CHICache {
   value: number;
   timestamp: number;
@@ -17,7 +16,7 @@ interface CHICache {
 }
 
 const chiCache = new Map<string, CHICache>();
-const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION_MS = 5 * 60 * 1000;
 
 /**
  * Calculate Customer Happiness Index from signal data
@@ -33,7 +32,6 @@ export async function calculateCHI(
   useCache: boolean = true
 ): Promise<number | null> {
   try {
-    // Check cache first
     const cacheKey = `chi_${timeWindowMinutes}_${productAreaId || 'all'}`;
 
     if (useCache) {
@@ -45,16 +43,13 @@ export async function calculateCHI(
 
     const supabase = createServiceClient();
 
-    // Calculate time threshold
     const timeThreshold = new Date(Date.now() - timeWindowMinutes * 60 * 1000).toISOString();
 
-    // Build query
     let query = supabase
       .from('signals')
       .select('sentiment, intensity')
       .gte('detected_at', timeThreshold);
 
-    // Add product area filter if specified
     if (productAreaId) {
       query = query.eq('product_area_id', productAreaId);
     }
@@ -67,10 +62,9 @@ export async function calculateCHI(
     }
 
     if (!signals || signals.length === 0) {
-      return null; // No data available
+      return null;
     }
 
-    // Calculate weighted average: (Σ sentiment × intensity) / Σ intensity
     let totalWeightedSentiment = 0;
     let totalIntensity = 0;
 
@@ -83,20 +77,15 @@ export async function calculateCHI(
     }
 
     if (totalIntensity === 0) {
-      return null; // Avoid division by zero
+      return null;
     }
 
-    // Calculate average sentiment (-1 to +1)
     const avgSentiment = totalWeightedSentiment / totalIntensity;
 
-    // Scale to 0-100
-    // -1 sentiment = 0 CHI, 0 sentiment = 50 CHI, +1 sentiment = 100 CHI
     const chiScore = Math.round(((avgSentiment + 1) / 2) * 100);
 
-    // Clamp to 0-100 range (safety check)
     const clampedScore = Math.max(0, Math.min(100, chiScore));
 
-    // Cache the result
     chiCache.set(cacheKey, {
       value: clampedScore,
       timestamp: Date.now(),
@@ -122,20 +111,17 @@ export async function getCHITrend(
   productAreaId?: string
 ): Promise<number> {
   try {
-    // Get current CHI (don't use cache for trend calculation)
     const currentCHI = await calculateCHI(timeWindowMinutes, productAreaId, false);
 
     if (currentCHI === null) {
-      return 0; // No trend if no current data
+      return 0;
     }
 
     const supabase = createServiceClient();
 
-    // Calculate time thresholds for previous window
     const currentWindowStart = new Date(Date.now() - timeWindowMinutes * 60 * 1000);
     const previousWindowStart = new Date(currentWindowStart.getTime() - timeWindowMinutes * 60 * 1000);
 
-    // Build query for previous window
     let query = supabase
       .from('signals')
       .select('sentiment, intensity')
@@ -149,10 +135,9 @@ export async function getCHITrend(
     const { data: previousSignals, error } = await query;
 
     if (error || !previousSignals || previousSignals.length === 0) {
-      return 0; // No comparison possible
+      return 0;
     }
 
-    // Calculate previous CHI
     let totalWeightedSentiment = 0;
     let totalIntensity = 0;
 
@@ -171,7 +156,6 @@ export async function getCHITrend(
     const avgSentiment = totalWeightedSentiment / totalIntensity;
     const previousCHI = Math.round(((avgSentiment + 1) / 2) * 100);
 
-    // Return the difference (trend)
     return currentCHI - previousCHI;
   } catch (error) {
     console.error('Error calculating CHI trend:', error);
@@ -179,9 +163,6 @@ export async function getCHITrend(
   }
 }
 
-/**
- * Clear CHI cache (useful for testing or forced refresh)
- */
 export function clearCHICache(): void {
   chiCache.clear();
 }

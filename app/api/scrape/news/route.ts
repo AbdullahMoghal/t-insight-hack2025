@@ -4,10 +4,8 @@ import { scrapeNews } from '@/lib/scraper/news';
 
 export async function GET() {
   try {
-    // Scrape Google News
     const result = await scrapeNews();
 
-    // Store in Supabase (using service role to bypass RLS)
     const supabase = createServiceClient();
 
     const { data, error } = await supabase

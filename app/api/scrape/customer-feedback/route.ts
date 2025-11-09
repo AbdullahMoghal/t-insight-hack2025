@@ -15,14 +15,12 @@ import { scrapeCustomerFeedback } from '@/lib/scraper/customer-feedback';
 
 export async function GET() {
   try {
-    console.log('🔍 Starting customer feedback scraper...');
+    console.log('Starting customer feedback scraper...');
 
-    // Scrape customer feedback (hybrid approach)
     const result = await scrapeCustomerFeedback();
 
-    console.log(`📊 Retrieved ${result.comments.length} comments (${result.data_source})`);
+    console.log(`Retrieved ${result.comments.length} comments (${result.data_source})`);
 
-    // Store in Supabase using service role client (bypasses RLS)
     const supabase = createServiceClient();
 
     const { data, error } = await supabase
@@ -39,11 +37,11 @@ export async function GET() {
       .single();
 
     if (error) {
-      console.error('❌ Supabase error:', error);
+      console.error('Supabase error:', error);
       throw error;
     }
 
-    console.log(`✅ Stored customer feedback with ID: ${data.id}`);
+    console.log(`Stored customer feedback with ID: ${data.id}`);
 
     return NextResponse.json({
       success: true,
@@ -55,7 +53,7 @@ export async function GET() {
     });
 
   } catch (error) {
-    console.error('❌ Customer feedback scraper error:', error);
+    console.error('Customer feedback scraper error:', error);
 
     return NextResponse.json(
       {
