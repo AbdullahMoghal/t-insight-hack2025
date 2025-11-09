@@ -3,7 +3,6 @@
  * Uses keyword-extractor to identify topics and map to product areas
  */
 
-// @ts-expect-error - no types available for keyword-extractor
 import keywordExtractor from 'keyword-extractor';
 
 export interface TopicResult {

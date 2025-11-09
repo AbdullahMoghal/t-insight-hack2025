@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface SentimentData {
   positive: number
@@ -9,12 +10,19 @@ interface SentimentData {
   negative: number
 }
 
+interface SourceData {
+  name: string
+  value: number
+}
+
 interface SentimentDistributionProps {
   data?: SentimentData
   productArea?: string
+  sourceData?: SourceData[]
 }
 
-export function SentimentDistribution({ data, productArea }: SentimentDistributionProps) {
+export function SentimentDistribution({ data, productArea, sourceData = [] }: SentimentDistributionProps) {
+  const [currentView, setCurrentView] = useState(0) // 0 = sentiment, 1 = sources
   // Default data if none provided
   const sentimentData = data || { positive: 0, neutral: 0, negative: 0 }
 
@@ -42,56 +50,103 @@ export function SentimentDistribution({ data, productArea }: SentimentDistributi
   const dominant = getDominantSentiment()
   const DominantIcon = dominant.icon
 
+  const COLORS = [
+    '#E8258E', '#7C3E93', '#00A19C', '#F58220',
+    '#4F46E5', '#EC4899', '#10B981', '#F59E0B'
+  ]
+
+  const sourceTotal = sourceData.reduce((sum, item) => sum + item.value, 0)
+  const sourceChartData = sourceData.map((item) => ({
+    ...item,
+    percentage: ((item.value / sourceTotal) * 100).toFixed(1),
+  }))
+
+  const views = ['Sentiment', 'Sources']
+
+  const handlePrevView = () => {
+    setCurrentView((prev) => (prev === 0 ? views.length - 1 : prev - 1))
+  }
+
+  const handleNextView = () => {
+    setCurrentView((prev) => (prev === views.length - 1 ? 0 : prev + 1))
+  }
+
   return (
     <div className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-tmobile-gray-200 rounded-2xl shadow-xl p-6 h-full flex flex-col">
       <div className="absolute inset-0 bg-gradient-to-br from-tmobile-magenta/5 via-transparent to-purple-500/5" />
 
       <div className="relative flex-1 flex flex-col">
-        <div className="mb-4 flex-shrink-0">
-          <h3 className="text-lg font-bold text-[#E8258E] mb-1">
-            Sentiment Distribution
-          </h3>
-          <p className="text-xs text-tmobile-gray-600">
-            {productArea ? `${productArea} sentiment breakdown` : 'Overall sentiment breakdown'}
-          </p>
+        <div className="mb-4 flex-shrink-0 flex items-start justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-[#E8258E] mb-1">
+              {currentView === 0 ? 'Sentiment Distribution' : 'Source Distribution'}
+            </h3>
+            <p className="text-xs text-tmobile-gray-600">
+              {currentView === 0
+                ? (productArea ? `${productArea} sentiment breakdown` : 'Overall sentiment breakdown')
+                : 'Distribution across data sources'
+              }
+            </p>
+          </div>
+
+          {/* Navigation Arrows */}
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handlePrevView}
+              className="p-1 rounded-lg hover:bg-tmobile-magenta/10 transition-colors"
+              aria-label="Previous view"
+            >
+              <ChevronLeft className="h-5 w-5 text-[#E8258E]" />
+            </button>
+            <button
+              onClick={handleNextView}
+              className="p-1 rounded-lg hover:bg-tmobile-magenta/10 transition-colors"
+              aria-label="Next view"
+            >
+              <ChevronRight className="h-5 w-5 text-[#E8258E]" />
+            </button>
+          </div>
         </div>
 
-        {total === 0 ? (
-          <div className="text-center py-12 flex-1 flex items-center justify-center">
-            <div>
-              <Minus className="h-12 w-12 text-tmobile-gray-300 mx-auto mb-3" />
-              <p className="text-sm text-tmobile-gray-600">No sentiment data available</p>
-            </div>
-          </div>
-        ) : (
-          <div className="flex-1 flex flex-col justify-between">
-            {/* Pie Chart */}
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    border: '1px solid #E5E7EB',
-                    borderRadius: '8px',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+        {/* Sentiment View */}
+        {currentView === 0 && (
+          <>
+            {total === 0 ? (
+              <div className="text-center py-12 flex-1 flex items-center justify-center">
+                <div>
+                  <Minus className="h-12 w-12 text-tmobile-gray-300 mx-auto mb-3" />
+                  <p className="text-sm text-tmobile-gray-600">No sentiment data available</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1 flex flex-col justify-between">
+                {/* Pie Chart */}
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={chartData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={false}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        border: '1px solid #E5E7EB',
+                        borderRadius: '8px',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
 
             {/* Stats Grid */}
             <div className="mt-4 grid grid-cols-3 gap-3 flex-shrink-0">
@@ -152,8 +207,85 @@ export function SentimentDistribution({ data, productArea }: SentimentDistributi
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Source View */}
+        {currentView === 1 && (
+          <>
+            {sourceTotal === 0 ? (
+              <div className="text-center py-12 flex-1 flex items-center justify-center">
+                <div>
+                  <Minus className="h-12 w-12 text-tmobile-gray-300 mx-auto mb-3" />
+                  <p className="text-sm text-tmobile-gray-600">No source data available</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1 flex flex-col justify-between">
+                {/* Pie Chart */}
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={sourceChartData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={false}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {sourceChartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        border: '1px solid #E5E7EB',
+                        borderRadius: '8px',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+
+                {/* Source List */}
+                <div className="mt-4 space-y-2 flex-shrink-0 max-h-[280px] overflow-y-auto">
+                  {sourceChartData.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center justify-between p-2 rounded-lg bg-gradient-to-r from-tmobile-gray-50 to-white border border-tmobile-gray-200 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                        />
+                        <span className="text-sm font-medium text-tmobile-black">
+                          {item.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-tmobile-gray-600">
+                          {item.value.toLocaleString()} signals
+                        </span>
+                        <span
+                          className="text-sm font-bold min-w-[3rem] text-right"
+                          style={{ color: COLORS[index % COLORS.length] }}
+                        >
+                          {item.percentage}%
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

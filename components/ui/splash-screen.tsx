@@ -7,8 +7,8 @@ export function SplashScreen() {
   const [hide, setHide] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setVisible(false), 1200); // how long to show
-    const t2 = setTimeout(() => setHide(true), 1200 + 500); // fade duration
+    const t1 = setTimeout(() => setVisible(false), 2500); // how long to show
+    const t2 = setTimeout(() => setHide(true), 2500 + 500); // fade duration
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);

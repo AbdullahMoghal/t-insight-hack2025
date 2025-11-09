@@ -5,7 +5,6 @@ import { CHIGauge } from './chi-gauge'
 import { ProductAreaCard } from './product-area-card'
 import { EmergingIssuesTable } from './emerging-issues-table'
 import { SentimentTimeline } from './sentiment-timeline'
-import { SourceBreakdown } from './source-breakdown'
 import { ProductAreaDetail } from './product-area-detail'
 import { RealtimeActivityFeed } from './realtime-activity-feed'
 import { EarlyWarningSystem } from './early-warning-system'
@@ -341,7 +340,7 @@ export function DashboardContent({
           <RealtimeActivityFeed signals={mockRealtimeSignals} />
         </div>
         <div className="lg:col-span-1">
-          <SentimentDistribution data={mockSentimentData} />
+          <SentimentDistribution data={mockSentimentData} sourceData={sourceData} />
         </div>
       </section>
 
@@ -363,11 +362,6 @@ export function DashboardContent({
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <IssueVelocityChart data={mockVelocityData} />
         <SentimentTimeline data={sentimentData} />
-      </section>
-
-      {/* Source Breakdown */}
-      <section>
-        <SourceBreakdown data={sourceData} />
       </section>
 
       {/* Product Area Detail Sheet */}

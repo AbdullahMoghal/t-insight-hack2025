@@ -33,7 +33,7 @@ interface GeoHeatmapProps {
 
 function HeatLayer({ feedback }: { feedback: FeedbackPoint[] }) {
   const map = useMap();
-  const heatLayerRef = useRef<L.HeatLayer | null>(null);
+  const heatLayerRef = useRef<any>(null);
 
   useEffect(() => {
     if (!map || feedback.length === 0) return;

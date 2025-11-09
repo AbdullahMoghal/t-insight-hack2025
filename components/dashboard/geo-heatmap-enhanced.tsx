@@ -56,7 +56,7 @@ const SEVERITY_COLORS = {
 
 function HeatLayer({ feedback }: { feedback: FeedbackPoint[] }) {
   const map = useMap();
-  const heatLayerRef = useRef<L.HeatLayer | null>(null);
+  const heatLayerRef = useRef<any>(null);
 
   useEffect(() => {
     if (!map || feedback.length === 0) return;
@@ -237,21 +237,13 @@ export function GeoHeatmapEnhanced({ feedback, onViewChange }: GeoHeatmapEnhance
         <div className="flex gap-2 bg-white/50 p-1 rounded-lg border border-tmobile-gray-200 w-fit">
           <button
             onClick={() => handleViewChange('feedback')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              mapView === 'feedback'
-                ? 'bg-[#E8258E] text-white shadow-sm'
-                : 'text-tmobile-gray-600 hover:bg-white/80'
-            }`}
+            className="px-4 py-2 rounded-md text-sm font-medium transition-all bg-[#E8258E] text-white shadow-sm"
           >
             Customer Feedback
           </button>
           <button
             onClick={() => handleViewChange('outage')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              mapView === 'outage'
-                ? 'bg-[#E8258E] text-white shadow-sm'
-                : 'text-tmobile-gray-600 hover:bg-white/80'
-            }`}
+            className="px-4 py-2 rounded-md text-sm font-medium transition-all text-tmobile-gray-600 hover:bg-white/80"
           >
             Outage Map
           </button>

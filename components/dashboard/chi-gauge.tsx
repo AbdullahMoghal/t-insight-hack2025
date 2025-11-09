@@ -72,7 +72,6 @@ export function CHIGauge({
           />
           <RadialBar
             background={{ fill: '#E5E7EB' }}
-            clockWise
             dataKey="value"
             cornerRadius={size === 'lg' ? 10 : size === 'md' ? 8 : 6}
           />
