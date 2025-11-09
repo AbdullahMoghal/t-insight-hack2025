@@ -3,6 +3,9 @@
  * Generates realistic sample data since Event API is not publicly accessible
  */
 
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 export interface OutageEvent {
   timestamp: string;
   status: string;
@@ -23,33 +26,26 @@ export interface OutageReportResult {
   fetched_at: string;
 }
 
-const EVENT_TYPES = ['outage', 'degraded', 'resolved', 'investigating'];
+interface OutageReportSampleData {
+  eventTypes: string[];
+  sampleEventDescriptions: string[];
+  sampleSocialMentions: string[];
+}
 
-const SAMPLE_EVENT_DESCRIPTIONS = [
-  'Users reporting connectivity issues in the Northeast region',
-  'Elevated error rates detected on 5G network',
-  'Service degradation in California area',
-  'Network maintenance causing intermittent outages',
-  'Mobile data speeds reduced in Texas',
-  'Billing system experiencing delays',
-  'App login failures reported by multiple users',
-  'SMS delivery delays in major metropolitan areas',
-  'Home Internet gateway disconnections increasing',
-  'Previous incident has been resolved',
-];
+// Load sample data from JSON file
+let sampleData: OutageReportSampleData;
+try {
+  const dataPath = join(process.cwd(), 'lib/scraper/data/outage-report-sample.json');
+  const fileContent = readFileSync(dataPath, 'utf-8');
+  sampleData = JSON.parse(fileContent);
+} catch (error) {
+  console.error('Failed to load outage-report sample data:', error);
+  throw new Error('Sample data file not found');
+}
 
-const SAMPLE_SOCIAL_MENTIONS = [
-  'T-Mobile network down in my area again... 📱',
-  'Anyone else having issues with T-Mobile 5G today?',
-  'T-Mobile app not loading for the past hour #tmobiledown',
-  'Switched to T-Mobile and regretting it. Network keeps dropping.',
-  'T-Mobile outage affecting work calls. Need this fixed ASAP!',
-  '@TMobile your service is terrible in downtown Chicago',
-  'T-Mobile billing showing incorrect charges this month',
-  'Losing patience with these constant T-Mobile outages',
-  'T-Mobile Home Internet keeps disconnecting every few hours',
-  'Is T-Mobile having nationwide issues or just my area?',
-];
+const EVENT_TYPES = sampleData.eventTypes;
+const SAMPLE_EVENT_DESCRIPTIONS = sampleData.sampleEventDescriptions;
+const SAMPLE_SOCIAL_MENTIONS = sampleData.sampleSocialMentions;
 
 /**
  * Generate random outage events

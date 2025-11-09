@@ -20,9 +20,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "fast-xml-parser": "^5.3.1",
+    "keyword-extractor": "^0.0.28",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
-    "fast-xml-parser": "^5.3.1",
     "lucide-react": "^0.553.0",
     "next": "16.0.1",
     "react": "19.2.0",
@@ -30,6 +31,7 @@
     "react-leaflet": "^5.0.0",
     "recharts": "^3.3.0",
     "tailwind-merge": "^3.3.1",
+    "wink-sentiment": "^5.0.2",
     "zod": "^4.1.12"
   },
   "devDependencies": {

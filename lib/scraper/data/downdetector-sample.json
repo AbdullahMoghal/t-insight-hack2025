@@ -1,0 +1,39 @@
+{
+  "problemTypes": [
+    { "type": "Mobile network", "percentage": 45 },
+    { "type": "Mobile App", "percentage": 30 },
+    { "type": "Billing", "percentage": 15 },
+    { "type": "Website", "percentage": 10 }
+  ],
+  "sampleComments": [
+    "Network down in Dallas, TX. No data at all.",
+    "App keeps crashing when I try to pay my bill",
+    "5G not working in Seattle area",
+    "Cannot make calls in downtown Chicago",
+    "Been trying to login to my account for 30 minutes",
+    "Home internet gateway keeps disconnecting",
+    "No service in Brooklyn for the past hour",
+    "Getting error message when checking my balance",
+    "Coverage is terrible in this area lately",
+    "Customer service line is busy, probably an outage",
+    "My bill shows incorrect charges again",
+    "Website won't load on mobile or desktop",
+    "LTE working but 5G is completely down",
+    "T-Mobile Tuesday app not loading",
+    "Cannot send or receive text messages"
+  ],
+  "locations": [
+    "New York, NY",
+    "Los Angeles, CA",
+    "Chicago, IL",
+    "Houston, TX",
+    "Phoenix, AZ",
+    "Philadelphia, PA",
+    "San Antonio, TX",
+    "San Diego, CA",
+    "Dallas, TX",
+    "San Jose, CA",
+    "Austin, TX",
+    "Seattle, WA"
+  ]
+}

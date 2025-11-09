@@ -3,6 +3,9 @@
  * Generates realistic sample data since DownDetector blocks scraping
  */
 
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 export interface DownDetectorReport {
   total_reports: number;
   problem_types: {
@@ -24,45 +27,26 @@ export interface DownDetectorResult {
   fetched_at: string;
 }
 
-const PROBLEM_TYPES = [
-  { type: 'Mobile network', percentage: 45 },
-  { type: 'Mobile App', percentage: 30 },
-  { type: 'Billing', percentage: 15 },
-  { type: 'Website', percentage: 10 },
-];
+interface DownDetectorSampleData {
+  problemTypes: { type: string; percentage: number }[];
+  sampleComments: string[];
+  locations: string[];
+}
 
-const SAMPLE_COMMENTS = [
-  'Network down in Dallas, TX. No data at all.',
-  'App keeps crashing when I try to pay my bill',
-  '5G not working in Seattle area',
-  'Cannot make calls in downtown Chicago',
-  'Been trying to login to my account for 30 minutes',
-  'Home internet gateway keeps disconnecting',
-  'No service in Brooklyn for the past hour',
-  'Getting error message when checking my balance',
-  'Coverage is terrible in this area lately',
-  'Customer service line is busy, probably an outage',
-  'My bill shows incorrect charges again',
-  'Website won\'t load on mobile or desktop',
-  'LTE working but 5G is completely down',
-  'T-Mobile Tuesday app not loading',
-  'Cannot send or receive text messages',
-];
+// Load sample data from JSON file
+let sampleData: DownDetectorSampleData;
+try {
+  const dataPath = join(process.cwd(), 'lib/scraper/data/downdetector-sample.json');
+  const fileContent = readFileSync(dataPath, 'utf-8');
+  sampleData = JSON.parse(fileContent);
+} catch (error) {
+  console.error('Failed to load downdetector sample data:', error);
+  throw new Error('Sample data file not found');
+}
 
-const LOCATIONS = [
-  'New York, NY',
-  'Los Angeles, CA',
-  'Chicago, IL',
-  'Houston, TX',
-  'Phoenix, AZ',
-  'Philadelphia, PA',
-  'San Antonio, TX',
-  'San Diego, CA',
-  'Dallas, TX',
-  'San Jose, CA',
-  'Austin, TX',
-  'Seattle, WA',
-];
+const PROBLEM_TYPES = sampleData.problemTypes;
+const SAMPLE_COMMENTS = sampleData.sampleComments;
+const LOCATIONS = sampleData.locations;
 
 /**
  * Generate random number of reports (fluctuates realistically)
