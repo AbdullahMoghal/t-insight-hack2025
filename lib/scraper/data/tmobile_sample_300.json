@@ -1,0 +1,2102 @@
+[
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-07",
+    "time": "04:42"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "06:41"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-05",
+    "time": "01:02"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "01:57"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-06",
+    "time": "22:26"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "08:35"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-05",
+    "time": "05:43"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-07",
+    "time": "16:32"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "18:49"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "23:20"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-06",
+    "time": "19:09"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "16:25"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "15:39"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-05",
+    "time": "04:06"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-07",
+    "time": "21:44"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-07",
+    "time": "20:27"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-08",
+    "time": "10:00"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "15:39"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "03:25"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "19:48"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "18:03"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-07",
+    "time": "00:22"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "03:05"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-05",
+    "time": "00:58"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-08",
+    "time": "20:31"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-06",
+    "time": "15:11"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-07",
+    "time": "05:52"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "21:30"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "12:54"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "05:28"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-06",
+    "time": "13:55"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "06:30"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "10:44"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "13:42"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "10:32"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "14:24"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "04:40"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "19:44"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "23:20"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-05",
+    "time": "21:09"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-08",
+    "time": "14:59"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "23:32"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "00:15"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "09:51"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "16:10"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "15:07"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "18:19"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "11:06"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "03:04"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "03:51"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-06",
+    "time": "16:01"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-06",
+    "time": "13:45"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-07",
+    "time": "16:04"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-06",
+    "time": "06:21"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "17:29"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-05",
+    "time": "22:31"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "13:45"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-05",
+    "time": "03:33"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "15:44"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-07",
+    "time": "08:46"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "22:21"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "22:35"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-04",
+    "time": "23:41"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "07:51"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "00:12"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "03:54"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-08",
+    "time": "03:34"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "18:18"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "15:32"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-05",
+    "time": "04:49"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-05",
+    "time": "06:05"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-06",
+    "time": "18:16"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "05:44"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "14:36"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-06",
+    "time": "11:29"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "18:22"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-08",
+    "time": "21:34"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-08",
+    "time": "10:02"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "03:03"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-08",
+    "time": "13:21"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "19:01"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-08",
+    "time": "02:20"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-06",
+    "time": "04:24"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "12:31"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "09:21"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-06",
+    "time": "12:18"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-06",
+    "time": "21:58"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-07",
+    "time": "04:21"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "11:23"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "11:00"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "07:10"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "03:28"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "14:08"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-06",
+    "time": "02:10"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "22:32"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "20:42"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-06",
+    "time": "19:10"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "22:22"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "01:44"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-06",
+    "time": "17:57"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-08",
+    "time": "20:15"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "02:02"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "01:55"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "06:40"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "19:34"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-07",
+    "time": "00:30"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "03:29"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-07",
+    "time": "22:05"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-07",
+    "time": "22:13"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "11:29"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "14:31"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "20:19"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "15:46"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-08",
+    "time": "13:32"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "10:05"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-07",
+    "time": "21:31"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-05",
+    "time": "20:58"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-07",
+    "time": "23:25"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "21:07"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "22:23"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "19:36"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-08",
+    "time": "06:03"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-08",
+    "time": "06:03"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "18:47"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "22:49"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-08",
+    "time": "13:11"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "08:21"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "20:35"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-08",
+    "time": "13:15"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "11:41"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "00:43"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "06:12"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-07",
+    "time": "12:43"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-08",
+    "time": "14:31"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "04:54"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-07",
+    "time": "21:34"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "03:22"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "08:55"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-08",
+    "time": "17:40"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-08",
+    "time": "10:44"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "00:34"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-06",
+    "time": "07:09"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "16:40"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "23:54"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "02:21"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "15:39"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-07",
+    "time": "11:04"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-06",
+    "time": "02:07"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "16:02"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "23:50"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "19:21"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "17:18"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-08",
+    "time": "08:14"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-07",
+    "time": "07:27"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-05",
+    "time": "16:54"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "00:57"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-06",
+    "time": "10:57"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-06",
+    "time": "16:01"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "07:26"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-05",
+    "time": "07:17"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-06",
+    "time": "06:02"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "10:36"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-06",
+    "time": "14:01"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-05",
+    "time": "19:40"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-06",
+    "time": "10:06"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "01:59"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "20:03"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-04",
+    "time": "23:19"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-08",
+    "time": "18:51"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-07",
+    "time": "15:32"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "05:59"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-05",
+    "time": "07:00"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "03:15"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "17:23"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "13:57"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "03:23"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "20:10"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-05",
+    "time": "02:48"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "02:04"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-08",
+    "time": "19:55"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "07:35"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-06",
+    "time": "23:21"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-07",
+    "time": "19:42"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-05",
+    "time": "04:52"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-07",
+    "time": "20:16"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-07",
+    "time": "01:47"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-05",
+    "time": "20:58"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-06",
+    "time": "08:25"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-07",
+    "time": "06:25"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "14:21"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "19:50"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-05",
+    "time": "12:24"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-06",
+    "time": "13:30"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-07",
+    "time": "07:22"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "22:17"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "07:04"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-07",
+    "time": "11:35"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-05",
+    "time": "10:01"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-05",
+    "time": "15:09"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "04:33"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "08:19"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-08",
+    "time": "20:58"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-08",
+    "time": "03:07"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "09:07"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-08",
+    "time": "15:48"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-08",
+    "time": "17:29"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-05",
+    "time": "14:32"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "08:25"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-07",
+    "time": "04:05"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-08",
+    "time": "11:45"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-05",
+    "time": "01:22"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-08",
+    "time": "04:21"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-07",
+    "time": "02:36"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "03:27"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "05:29"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-05",
+    "time": "19:30"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "22:34"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "14:05"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-05",
+    "time": "02:13"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-07",
+    "time": "06:49"
+  },
+  {
+    "city": "Las Vegas",
+    "state": "NV",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "17:54"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "10:01"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-06",
+    "time": "15:11"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-07",
+    "time": "14:13"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "09:09"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "18:53"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-05",
+    "time": "07:47"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "16:05"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "05:01"
+  },
+  {
+    "city": "Detroit",
+    "state": "MI",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-05",
+    "time": "01:37"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "14:46"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "11:49"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "04:34"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "04:20"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-06",
+    "time": "14:23"
+  },
+  {
+    "city": "Kansas City",
+    "state": "MO",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-05",
+    "time": "11:30"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "07:59"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-05",
+    "time": "08:34"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "05:21"
+  },
+  {
+    "city": "Atlanta",
+    "state": "GA",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "10:43"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "06:12"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-05",
+    "time": "09:41"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "21:24"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-08",
+    "time": "15:57"
+  },
+  {
+    "city": "Portland",
+    "state": "OR",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-05",
+    "time": "06:04"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-07",
+    "time": "18:53"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-05",
+    "time": "03:35"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "17:18"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-06",
+    "time": "00:35"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "09:29"
+  },
+  {
+    "city": "Salt Lake City",
+    "state": "UT",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "06:41"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-06",
+    "time": "10:51"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "17:40"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-07",
+    "time": "13:38"
+  },
+  {
+    "city": "Dallas",
+    "state": "TX",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "02:06"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "12:59"
+  },
+  {
+    "city": "Denver",
+    "state": "CO",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-05",
+    "time": "02:50"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-06",
+    "time": "07:42"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-08",
+    "time": "07:10"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "No signal for a few hours this afternoon.",
+    "date": "2025-11-05",
+    "time": "17:48"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-06",
+    "time": "12:30"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Outage reported earlier, seems resolved now.",
+    "date": "2025-11-07",
+    "time": "08:21"
+  },
+  {
+    "city": "Phoenix",
+    "state": "AZ",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "16:53"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-08",
+    "time": "05:09"
+  },
+  {
+    "city": "Seattle",
+    "state": "WA",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-06",
+    "time": "09:46"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "05:37"
+  },
+  {
+    "city": "Raleigh",
+    "state": "NC",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-07",
+    "time": "07:41"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-06",
+    "time": "12:04"
+  },
+  {
+    "city": "Chicago",
+    "state": "IL",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "21:14"
+  },
+  {
+    "city": "Tampa",
+    "state": "FL",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-06",
+    "time": "07:21"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-07",
+    "time": "06:16"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Switches between LTE and No Service constantly.",
+    "date": "2025-11-06",
+    "time": "04:23"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "Great performance today, everything is smooth.",
+    "date": "2025-11-08",
+    "time": "11:01"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "07:08"
+  },
+  {
+    "city": "Baltimore",
+    "state": "MD",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "02:09"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-06",
+    "time": "09:54"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "07:07"
+  },
+  {
+    "city": "St. Louis",
+    "state": "MO",
+    "comment": "Calls dropping frequently.",
+    "date": "2025-11-08",
+    "time": "13:09"
+  },
+  {
+    "city": "Philadelphia",
+    "state": "PA",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-08",
+    "time": "14:22"
+  },
+  {
+    "city": "Charlotte",
+    "state": "NC",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-06",
+    "time": "19:38"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Lost service during the commute but returned later.",
+    "date": "2025-11-07",
+    "time": "04:36"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-05",
+    "time": "06:37"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-08",
+    "time": "12:17"
+  },
+  {
+    "city": "New York",
+    "state": "NY",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-08",
+    "time": "04:44"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Network seems stable today with no issues.",
+    "date": "2025-11-06",
+    "time": "13:50"
+  },
+  {
+    "city": "Orlando",
+    "state": "FL",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-06",
+    "time": "17:16"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "19:55"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "21:34"
+  },
+  {
+    "city": "Houston",
+    "state": "TX",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-06",
+    "time": "21:46"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Upload speeds extremely slow.",
+    "date": "2025-11-05",
+    "time": "23:22"
+  },
+  {
+    "city": "Cincinnati",
+    "state": "OH",
+    "comment": "Intermittent slowdowns when loading apps.",
+    "date": "2025-11-06",
+    "time": "21:37"
+  },
+  {
+    "city": "Nashville",
+    "state": "TN",
+    "comment": "Service has been spotty. Data cuts out randomly.",
+    "date": "2025-11-04",
+    "time": "23:29"
+  },
+  {
+    "city": "Minneapolis",
+    "state": "MN",
+    "comment": "Ping is very high making apps lag.",
+    "date": "2025-11-08",
+    "time": "19:01"
+  },
+  {
+    "city": "Cleveland",
+    "state": "OH",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-07",
+    "time": "11:01"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-08",
+    "time": "18:13"
+  },
+  {
+    "city": "Boston",
+    "state": "MA",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-08",
+    "time": "00:23"
+  },
+  {
+    "city": "Indianapolis",
+    "state": "IN",
+    "comment": "5G seems slower than usual today.",
+    "date": "2025-11-06",
+    "time": "01:54"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Video streaming is buffering a lot.",
+    "date": "2025-11-05",
+    "time": "10:39"
+  },
+  {
+    "city": "Miami",
+    "state": "FL",
+    "comment": "Strong and fast signal today.",
+    "date": "2025-11-05",
+    "time": "04:17"
+  },
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "comment": "Text messages delayed by several minutes.",
+    "date": "2025-11-07",
+    "time": "19:43"
+  }
+]
