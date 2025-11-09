@@ -36,6 +36,11 @@ export default async function DashboardPage() {
     },
   }
 
+  let earlyWarningData = {
+    risingIssues: [],
+    totalRising: 0,
+  }
+
   try {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
 
@@ -69,6 +74,23 @@ export default async function DashboardPage() {
     } else {
       console.error('Failed to fetch outage data:', outageResponse.statusText)
     }
+
+    // Fetch early warning data
+    const earlyWarningResponse = await fetch(`${baseUrl}/api/dashboard/early-warning`, {
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (earlyWarningResponse.ok) {
+      const earlyWarningJson = await earlyWarningResponse.json()
+      if (earlyWarningJson.success) {
+        earlyWarningData = earlyWarningJson
+      }
+    } else {
+      console.error('Failed to fetch early warning data:', earlyWarningResponse.statusText)
+    }
   } catch (error) {
     console.error('Error fetching dashboard data:', error)
     // Will use default values if fetch fails
@@ -97,6 +119,12 @@ export default async function DashboardPage() {
               />
             </a>
             <div className="flex items-center gap-4">
+              <a
+                href="/pm/opportunities"
+                className="text-sm text-white hover:text-white/80 transition-colors font-medium px-3 py-2 rounded-md hover:bg-white/10"
+              >
+                PM Workbench
+              </a>
               <a
                 href="/dashboard/geo"
                 className="text-sm text-white hover:text-white/80 transition-colors font-medium px-3 py-2 rounded-md hover:bg-white/10"
@@ -129,6 +157,7 @@ export default async function DashboardPage() {
           sentimentData={sentimentData}
           sourceData={sourceData}
           outageData={outageData}
+          earlyWarningData={earlyWarningData}
         />
       </main>
     </div>

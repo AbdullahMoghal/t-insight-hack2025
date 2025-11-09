@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { CHIGauge } from './chi-gauge'
 import { ProductAreaCard } from './product-area-card'
 import { EmergingIssuesTable } from './emerging-issues-table'
@@ -12,6 +13,7 @@ import { MomentsOfDelight } from './moments-of-delight'
 import { IssueVelocityChart } from './issue-velocity-chart'
 import { SentimentDistribution } from './sentiment-distribution'
 import { SplashScreen } from '@/components/ui/splash-screen'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -19,6 +21,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { toast } from 'sonner'
+import { Save, ExternalLink } from 'lucide-react'
 
 interface ProductArea {
   id: string
@@ -76,6 +80,22 @@ interface Insights {
   stakeholders: string[]
 }
 
+interface EarlyWarningData {
+  risingIssues: Array<{
+    topic: string
+    productAreaId: string
+    productAreaName: string
+    color: string
+    currentIntensity: number
+    velocity: number
+    projectedIntensity: number
+    timeToSpreadHours: number
+    affectedUsers: number
+    confidence: number
+  }>
+  totalRising: number
+}
+
 interface DashboardContentProps {
   overallCHI: number
   productAreas: ProductArea[]
@@ -83,6 +103,7 @@ interface DashboardContentProps {
   sentimentData: DataPoint[]
   sourceData: SourceData[]
   outageData?: OutageData
+  earlyWarningData?: EarlyWarningData
 }
 
 export function DashboardContent({
@@ -92,13 +113,16 @@ export function DashboardContent({
   sentimentData,
   sourceData,
   outageData,
+  earlyWarningData,
 }: DashboardContentProps) {
+  const router = useRouter()
   const [selectedProductArea, setSelectedProductArea] = useState<ProductArea | null>(null)
   const [isReady, setIsReady] = useState(false)
   const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null)
   const [insights, setInsights] = useState<Insights | null>(null)
   const [isLoadingInsights, setIsLoadingInsights] = useState(false)
   const [insightsError, setInsightsError] = useState<string | null>(null)
+  const [isSavingOpportunity, setIsSavingOpportunity] = useState(false)
 
   useEffect(() => {
     // Mark as ready after component mounts and data is available
@@ -163,6 +187,69 @@ export function DashboardContent({
     }
   }
 
+  const handleSaveOpportunity = async () => {
+    if (!selectedIssue || !insights) {
+      toast.error('Cannot save opportunity', {
+        description: 'Missing issue or insights data',
+      })
+      return
+    }
+
+    setIsSavingOpportunity(true)
+
+    try {
+      // Get product area ID
+      const productAreaMatch = productAreas.find((pa) => pa.name === selectedIssue.productArea)
+      if (!productAreaMatch) {
+        throw new Error('Product area not found')
+      }
+
+      // Create opportunity
+      const response = await fetch('/api/opportunities', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          issueId: selectedIssue.id,
+          title: selectedIssue.topic,
+          description: insights.summary,
+          productAreaId: productAreaMatch.id,
+          topic: selectedIssue.topic, // API will query signals by topic and product area
+          insights,
+          effort: 5, // Default effort
+          confidence: 0.7, // Default confidence
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to create opportunity')
+      }
+
+      toast.success('Opportunity Created!', {
+        description: 'View it in the PM Workbench',
+        action: {
+          label: 'Go to Workbench',
+          onClick: () => router.push('/pm/opportunities'),
+        },
+      })
+
+      // Close dialog
+      setSelectedIssue(null)
+      setInsights(null)
+      setInsightsError(null)
+    } catch (error) {
+      console.error('Error saving opportunity:', error)
+      toast.error('Failed to save opportunity', {
+        description: error instanceof Error ? error.message : 'Unknown error',
+      })
+    } finally {
+      setIsSavingOpportunity(false)
+    }
+  }
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'Critical':
@@ -193,6 +280,21 @@ export function DashboardContent({
     }
   }
 
+  // Transform early warning data for the component
+  const risingIssues = (earlyWarningData?.risingIssues || []).map((issue) => ({
+    id: `${issue.topic}-${issue.productAreaId}`,
+    topic: issue.topic,
+    productArea: issue.productAreaName,
+    color: issue.color,
+    velocity: issue.velocity,
+    currentIntensity: issue.currentIntensity,
+    projectedIntensity: issue.projectedIntensity,
+    timeToSpread: issue.timeToSpreadHours > 0
+      ? `${Math.round(issue.timeToSpreadHours * 10) / 10} hours`
+      : 'Already critical',
+    affectedUsers: issue.affectedUsers,
+  }))
+
   // Mock data for new components (will be replaced with real data from API)
   const mockRealtimeSignals = emergingIssues.slice(0, 10).map((issue) => ({
     id: issue.id,
@@ -202,18 +304,6 @@ export function DashboardContent({
     timestamp: new Date(),
     productArea: issue.productArea,
     color: productAreas.find((pa) => pa.name === issue.productArea)?.color || '#E8258E',
-  }))
-
-  const mockRisingIssues = emergingIssues.slice(0, 3).map((issue) => ({
-    id: issue.id,
-    topic: issue.topic,
-    productArea: issue.productArea,
-    color: productAreas.find((pa) => pa.name === issue.productArea)?.color || '#E8258E',
-    velocity: issue.intensity / 2,
-    currentIntensity: issue.intensity,
-    projectedIntensity: Math.round(issue.intensity * 1.5),
-    timeToSpread: '2 hours',
-    affectedUsers: issue.intensity * 100,
   }))
 
   const mockDelightMoments = emergingIssues
@@ -310,7 +400,7 @@ export function DashboardContent({
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-tmobile-gray-200 hover:shadow-lg transition-shadow">
               <div className="text-xs text-tmobile-gray-600 mb-1">Rising Issues</div>
               <div className="text-3xl font-bold text-red-600">
-                {mockRisingIssues.length}
+                {risingIssues.length}
               </div>
               <div className="text-xs text-red-600 mt-1">⚠️ Needs attention</div>
             </div>
@@ -399,7 +489,7 @@ export function DashboardContent({
 
       {/* Critical Alerts Row */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <EarlyWarningSystem risingIssues={mockRisingIssues} />
+        <EarlyWarningSystem risingIssues={risingIssues} />
         <MomentsOfDelight moments={mockDelightMoments} />
       </section>
 
@@ -557,6 +647,35 @@ export function DashboardContent({
                     </span>
                   ))}
                 </div>
+              </div>
+
+              {/* Save as Opportunity Button */}
+              <div className="flex gap-3 pt-6 border-t border-tmobile-gray-200">
+                <Button
+                  onClick={handleSaveOpportunity}
+                  disabled={isSavingOpportunity}
+                  className="flex-1 bg-[#E8258E] hover:bg-[#D01A7A] text-white font-semibold"
+                >
+                  {isSavingOpportunity ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-4 w-4 mr-2" />
+                      Save as Opportunity
+                    </>
+                  )}
+                </Button>
+                <Button
+                  onClick={() => router.push('/pm/opportunities')}
+                  variant="outline"
+                  className="border-[#E8258E]/30 text-[#E8258E] hover:bg-[#E8258E]/10"
+                >
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  View Workbench
+                </Button>
               </div>
             </div>
           )}
