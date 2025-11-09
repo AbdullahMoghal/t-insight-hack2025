@@ -17,6 +17,7 @@ export function Navbar({ userEmail }: NavbarProps) {
   const navItems = [
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/pm/opportunities', label: 'PM Workbench' },
+    { href: '/how-it-works', label: 'How It Works' },
     { href: '/dashboard/geo', label: 'GeoMap' },
   ]
 

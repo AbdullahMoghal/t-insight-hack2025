@@ -53,9 +53,19 @@ interface Opportunity {
       priority: 'Low' | 'Medium' | 'High' | 'Critical'
     }>
     closeloop?: {
-      status?: 'recovered' | 'monitoring' | 'not-recovered'
-      monitoredAt?: string
-      recoveryMetrics?: any
+      status: 'recovered' | 'monitoring' | 'not-recovered'
+      monitoredAt: string
+      recoveryMetrics: {
+        beforeSentiment: number
+        afterSentiment?: number
+        sentimentChange?: number
+        beforeIntensity: number
+        afterIntensity?: number
+        intensityChange?: number
+        signalCountBefore: number
+        signalCountAfter?: number
+      }
+      timeline?: Array<{ timestamp: string; sentiment: number; intensity: number }>
     }
     releaseNotes?: {
       generatedAt: string
