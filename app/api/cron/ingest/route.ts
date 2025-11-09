@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
- * Cron Orchestrator
+ * Cron Orchestrator (POST endpoint)
  * Calls all scraper endpoints and aggregates results
  * Secured with CRON_SECRET environment variable
+ *
+ * Called by: Supabase pg_cron via net.http_post()
  */
 
 const SCRAPER_ENDPOINTS = [
@@ -23,7 +25,7 @@ interface ScraperResult {
   error?: string;
 }
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     // Verify CRON_SECRET
     const authHeader = request.headers.get('authorization');
