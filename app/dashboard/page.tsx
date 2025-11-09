@@ -144,6 +144,12 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-4">
+              <a
+                href="/dashboard/geo"
+                className="text-sm text-tmobile-gray-600 hover:text-tmobile-magenta transition-colors font-medium"
+              >
+                GeoMap
+              </a>
               <span className="text-sm text-tmobile-gray-600">
                 {user.email}
               </span>
