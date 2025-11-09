@@ -421,9 +421,9 @@ export function ProductAreaDetail({
                   <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                     <p className="text-red-800 font-semibold mb-2 text-sm">Error</p>
                     <p className="text-red-700 text-xs">{actionsError}</p>
-                    {actionsError.includes('GEMINI_API_KEY') && (
+                    {actionsError.toLowerCase().includes('api key') && (
                       <p className="text-red-600 text-xs mt-2">
-                        Please add GEMINI_API_KEY to your .env.local file
+                        Please configure the required AI API key in your .env.local file
                       </p>
                     )}
                   </div>

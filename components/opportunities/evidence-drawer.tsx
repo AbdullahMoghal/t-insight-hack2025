@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet'
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { ExternalLink, Calendar, ThumbsUp, ThumbsDown, Minus } from 'lucide-react'
@@ -68,8 +68,32 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
         throw new Error(data.message || 'Failed to fetch signals')
       }
 
+      // Deduplicate signals with the same topic text within each source group
+      const deduplicatedGroupedSignals: Record<string, Signal[]> = {}
+
+      Object.entries(data.groupedSignals || {}).forEach(([source, sourceSignals]) => {
+        const topicMap = new Map<string, Signal>()
+
+        ;(sourceSignals as Signal[]).forEach((signal) => {
+          const normalizedTopic = signal.topic.toLowerCase().trim()
+
+          // Keep the first occurrence or the one with more negative sentiment
+          if (!topicMap.has(normalizedTopic)) {
+            topicMap.set(normalizedTopic, signal)
+          } else {
+            const existing = topicMap.get(normalizedTopic)!
+            // Keep the signal with more negative sentiment (more critical)
+            if (signal.sentiment < existing.sentiment) {
+              topicMap.set(normalizedTopic, signal)
+            }
+          }
+        })
+
+        deduplicatedGroupedSignals[source] = Array.from(topicMap.values())
+      })
+
       setSignals(data.signals || [])
-      setGroupedSignals(data.groupedSignals || {})
+      setGroupedSignals(deduplicatedGroupedSignals)
       setSummary(data.summary || null)
     } catch (err) {
       console.error('Error fetching signals:', err)
@@ -104,17 +128,25 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
     return `${diffDays}d ago`
   }
 
+  const toTitleCase = (str: string) => {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-2xl overflow-y-auto bg-white/95 backdrop-blur-md">
-        <SheetHeader>
-          <SheetTitle className="text-2xl font-bold text-[#E8258E]">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white/95 backdrop-blur-md">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-[#E8258E]">
             Evidence & Source Signals
-          </SheetTitle>
-          <SheetDescription>
+          </DialogTitle>
+          <DialogDescription>
             Customer feedback and signals supporting this opportunity
-          </SheetDescription>
-        </SheetHeader>
+          </DialogDescription>
+        </DialogHeader>
 
         {loading && (
           <div className="flex items-center justify-center py-12">
@@ -163,7 +195,7 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
                       variant="outline"
                       className="bg-white border-tmobile-gray-300"
                     >
-                      {source.name} ({source.count})
+                      {toTitleCase(source.name)} ({source.count})
                     </Badge>
                   ))}
                 </div>
@@ -182,7 +214,7 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
                 <div key={source} className="space-y-3">
                   <h4 className="text-sm font-semibold text-tmobile-gray-700 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#E8258E]" />
-                    {source} ({sourceSignals.length})
+                    {toTitleCase(source)} ({sourceSignals.length})
                   </h4>
 
                   {sourceSignals.map((signal) => (
@@ -193,7 +225,7 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div className="flex-1">
                           <p className="text-sm text-tmobile-black font-medium mb-1">
-                            {signal.topic}
+                            {toTitleCase(signal.topic)}
                           </p>
                           {signal.meta?.text && (
                             <p className="text-sm text-tmobile-gray-700 leading-relaxed">
@@ -242,7 +274,7 @@ export function EvidenceDrawer({ opportunityId, isOpen, onClose }: EvidenceDrawe
             <p className="text-tmobile-gray-500">No signals found for this opportunity</p>
           </div>
         )}
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   )
 }

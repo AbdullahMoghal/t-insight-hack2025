@@ -156,7 +156,7 @@ export function UserStories({
 
         <div className="mt-6 pt-6 border-t border-tmobile-gray-200 text-center">
           <p className="text-xs text-tmobile-gray-500 italic">
-            Generated with InsighT AI • Powered by Gemini 2.0 Flash
+            Generated with T-Insight AI
           </p>
         </div>
       </DialogContent>

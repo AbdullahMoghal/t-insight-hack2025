@@ -142,44 +142,46 @@ ${prd.risks.map((r) => `- ${r}`).join('\n')}
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-[#E8258E] flex items-center justify-between">
-            <span>Product Requirements Document</span>
-            <div className="flex gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={copyToClipboard}
-                className="text-xs"
-              >
-                {copied ? (
-                  <>
-                    <CheckCircle2 className="h-3 w-3 mr-1.5" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3 w-3 mr-1.5" />
-                    Copy
-                  </>
-                )}
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={downloadMarkdown}
-                className="text-xs"
-              >
-                <Download className="h-3 w-3 mr-1.5" />
-                Download
-              </Button>
-            </div>
+          <DialogTitle className="text-2xl font-bold text-[#E8258E]">
+            Product Requirements Document
           </DialogTitle>
           <DialogDescription className="text-base font-medium">
             {opportunityTitle}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 mt-6">
+        {/* Action Buttons */}
+        <div className="flex gap-2 pb-4 border-b border-tmobile-gray-200">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={copyToClipboard}
+            className="text-xs"
+          >
+            {copied ? (
+              <>
+                <CheckCircle2 className="h-3 w-3 mr-1.5" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-3 w-3 mr-1.5" />
+                Copy
+              </>
+            )}
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={downloadMarkdown}
+            className="text-xs"
+          >
+            <Download className="h-3 w-3 mr-1.5" />
+            Download
+          </Button>
+        </div>
+
+        <div className="space-y-6 mt-4">
           {/* Problem Statement */}
           <section>
             <h3 className="text-lg font-semibold text-tmobile-gray-800 mb-3 flex items-center gap-2">
@@ -333,7 +335,7 @@ ${prd.risks.map((r) => `- ${r}`).join('\n')}
 
         <div className="mt-6 pt-6 border-t border-tmobile-gray-200 text-center">
           <p className="text-xs text-tmobile-gray-500 italic">
-            Generated with InsighT AI • Powered by Gemini 2.0 Flash
+            Generated with T-Insight AI
           </p>
         </div>
       </DialogContent>
