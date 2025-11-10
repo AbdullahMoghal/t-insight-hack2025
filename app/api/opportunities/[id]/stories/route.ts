@@ -87,24 +87,26 @@ ${signalQuotes || 'No customer quotes available'}
 **Instructions:**
 Extract personas from the feedback and generate user stories in this JSON format. Each story should:
 1. Identify a specific user persona based on the signals
-2. State what they want to accomplish
-3. Explain why it benefits them
+2. State what they want to accomplish (WITHOUT "I want" prefix)
+3. Explain why it benefits them (WITHOUT "so that" prefix)
 4. Link to the signal IDs that support this story
 5. Assign a priority based on impact
+
+IMPORTANT: Do NOT include "I want" or "so that" in the goal and benefit fields - these will be added automatically.
 
 {
   "stories": [
     {
       "persona": "Frustrated mobile app user trying to check their account",
-      "goal": "I want to log in without errors",
-      "benefit": "so that I can manage my account quickly and avoid calling support",
+      "goal": "log in without errors",
+      "benefit": "I can manage my account quickly and avoid calling support",
       "linkedSignalIds": ["signal-id-1", "signal-id-2"],
       "priority": "High"
     },
     {
       "persona": "Customer experiencing billing discrepancies",
-      "goal": "I want to see a clear breakdown of my charges",
-      "benefit": "so that I can understand what I'm paying for and dispute errors",
+      "goal": "see a clear breakdown of my charges",
+      "benefit": "I can understand what I'm paying for and dispute errors",
       "linkedSignalIds": ["signal-id-3"],
       "priority": "Medium"
     }
@@ -143,15 +145,15 @@ Return ONLY valid JSON, no markdown formatting, no code blocks.`
         stories: [
           {
             persona: `${opportunity.product_area?.name} user affected by ${opportunity.title}`,
-            goal: 'I want this issue to be resolved',
-            benefit: 'so that I can use the service without problems',
+            goal: 'have this issue resolved',
+            benefit: 'I can use the service without problems',
             linkedSignalIds: opportunity.derived_from_signal_ids?.slice(0, 2) || [],
             priority: opportunity.severity === 'critical' ? 'Critical' : opportunity.severity === 'high' ? 'High' : 'Medium',
           },
           {
             persona: 'Customer support agent handling related complaints',
-            goal: 'I want to have a solution to offer customers',
-            benefit: 'so that I can reduce ticket volume and improve satisfaction',
+            goal: 'have a solution to offer customers',
+            benefit: 'I can reduce ticket volume and improve satisfaction',
             linkedSignalIds: opportunity.derived_from_signal_ids?.slice(0, 1) || [],
             priority: 'Medium',
           },
@@ -165,14 +167,26 @@ Return ONLY valid JSON, no markdown formatting, no code blocks.`
         stories: [
           {
             persona: 'User',
-            goal: 'I want this issue resolved',
-            benefit: 'so that I can have a better experience',
+            goal: 'have this issue resolved',
+            benefit: 'I can have a better experience',
             linkedSignalIds: [],
             priority: 'Medium',
           },
         ],
       }
     }
+
+    // Clean up stories - remove "I want" and "so that" if present
+    storiesJson.stories = storiesJson.stories.map(story => ({
+      ...story,
+      goal: story.goal
+        .replace(/^I want to /i, '')
+        .replace(/^I want /i, '')
+        .replace(/^to /i, ''),
+      benefit: story.benefit
+        .replace(/^so that /i, '')
+        .replace(/^that /i, ''),
+    }))
 
     // Update opportunity with stories
     const { error: updateError } = await supabase

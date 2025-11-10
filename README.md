@@ -1,5 +1,11 @@
 # T-Insight
 
+## Demo Video
+
+[![T-Insight Demo](https://img.youtube.com/vi/4c7uRVxoJfc/maxresdefault.jpg)](https://www.youtube.com/watch?v=4c7uRVxoJfc)
+
+## Overview
+
 A comprehensive customer intelligence platform for T-Mobile that aggregates customer feedback from multiple sources, analyzes sentiment, and generates AI-powered actionable insights to improve customer experience.
 
 ## Features
